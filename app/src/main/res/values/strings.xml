@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">EzStudies</string>
+    <string name="textLoginButton">Log in</string>
+    <string name="textRegisterButton">Sign up</string>
+</resources>
