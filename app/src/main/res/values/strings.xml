@@ -2,4 +2,18 @@
     <string name="app_name">EzStudies</string>
     <string name="textLoginButton">Log in</string>
     <string name="textRegisterButton">Sign up</string>
+    <string name="RegistrationText">Registration</string>
+
+    <!-- FontAwesome -->
+
+    <string name="fa_user">&#xf007;</string>
+    <string name="fa_graduation_cap">&#xf19d;</string>
+    <string name="fa_group">&#xf0c0;</string>
+    <string name="fa_lock">&#xf023;</string>
+
+    <!-- Spinner -->
+    <string-array name="group_array">
+        <item>DA1</item>
+        <item>DA2</item>
+    </string-array>
 </resources>

@@ -5,4 +5,9 @@
     <color name="colorAccent">#FF4081</color>
     <color name="colorBlack">#000000</color>
     <color name="colorText">#FFFFFF</color>
+    <color name="inputFieldColor">#2c3e50</color>
+    <color name="inputLineSeparator">#2C3539</color>
+    <color name="hintColor">#7f8c8d</color>
+    <color name="inputIconColor">#7f8c8d</color>
+    <color name="inputTextColor">#ecf0f1</color>
 </resources>
