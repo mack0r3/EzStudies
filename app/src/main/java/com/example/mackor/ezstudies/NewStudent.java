@@ -1,5 +1,4 @@
 package com.example.mackor.ezstudies;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -7,6 +6,9 @@ import java.util.regex.Pattern;
  * Created by Bogus on 2016-02-08.
  */
 public class NewStudent {
+
+    private static String insertUserURL = "http://46.101.168.84/EzStudiesCRUD/create_user.php";
+
     private String fname;
     private String lname;
     private String indexNo;
@@ -23,31 +25,23 @@ public class NewStudent {
 
     public boolean validateName()
     {
-        String namePattern = "^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{1,20}$";
-        Pattern pattern = Pattern.compile(namePattern);
+        String regex = "^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{1,20}$";
+        Pattern pattern = Pattern.compile(regex);
         Matcher fnameMatcher = pattern.matcher(fname),
                 lnameMatcher = pattern.matcher(lname);
 
         return (fnameMatcher.matches() && lnameMatcher.matches());
     }
+    public boolean validateIndexNo()
+    {
+        String regex = "^[0-9]{6}$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher indexMachter = pattern.matcher(indexNo);
 
-    public String getFname() {
-        return fname;
+        return indexMachter.matches();
     }
 
-    public String getLname() {
-        return lname;
-    }
-
-    public String getIndexNo() {
-        return indexNo;
-    }
-
-    public String getGroup() {
-        return group;
-    }
-
-    public String getPassword() {
-        return password;
-    }
 }
+
+
+

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
@@ -14,6 +15,21 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.BufferedWriter;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.util.Arrays;
 import java.util.List;
 
@@ -67,15 +83,24 @@ public class SignUpActivity extends AppCompatActivity {
                         password = passwordInput.getText().toString();
 
                 NewStudent newStudent = new NewStudent(fname, lname, indexNo, group, password);
-                String result;
-                if(newStudent.validateName())result = "true";
-                else result = "false";
 
-                Toast toast = Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG);
-                toast.show();
+                //TODO validate fields before registration
+
+                //Register user
+                String method = "REGISTER";
+                Networking networking = new Networking();
+                networking.execute(method, newStudent);
+
+
+
             }
         });
 
+    }
+
+    public void _(String message)
+    {
+        Log.v("EzStudies", message);
     }
 
     public void hideKeyboard()
