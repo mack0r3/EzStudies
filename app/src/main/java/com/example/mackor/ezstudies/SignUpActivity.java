@@ -1,7 +1,6 @@
 package com.example.mackor.ezstudies;
 
 import android.content.Context;
-import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,24 +11,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
-
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.BufferedWriter;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLEncoder;
 import java.util.Arrays;
 import java.util.List;
 
@@ -88,7 +69,9 @@ public class SignUpActivity extends AppCompatActivity {
 
                 //Register user
                 String method = "REGISTER";
-                Networking networking = new Networking();
+                //We need to pass applicationContext() to Networking class because we will
+                //make a toast from there which has to take this context as a parameter.
+                Networking networking = new Networking(getApplicationContext());
                 networking.execute(method, newStudent);
 
 

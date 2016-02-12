@@ -7,8 +7,6 @@ import java.util.regex.Pattern;
  */
 public class NewStudent {
 
-    private static String insertUserURL = "http://46.101.168.84/EzStudiesCRUD/create_user.php";
-
     private String fname;
     private String lname;
     private String indexNo;
@@ -39,6 +37,26 @@ public class NewStudent {
         Matcher indexMachter = pattern.matcher(indexNo);
 
         return indexMachter.matches();
+    }
+
+    public String getFname() {
+        return fname;
+    }
+
+    public String getLname() {
+        return lname;
+    }
+
+    public String getIndexNo() {
+        return indexNo;
+    }
+
+    public String getGroup() {
+        return group;
+    }
+
+    public String getPassword() {
+        return password;
     }
 
 }
