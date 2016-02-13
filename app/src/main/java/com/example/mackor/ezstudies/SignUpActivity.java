@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.mackor.ezstudies.BackEndTools.Networking;
 import com.example.mackor.ezstudies.FrontEndTools.FontManager;
@@ -69,16 +70,37 @@ public class SignUpActivity extends AppCompatActivity {
 
                 NewStudent newStudent = new NewStudent(fname, lname, indexNo, group, password);
 
-                //TODO validate fields before registration
+                String invalidNameError = "Your name is invalid";
+                String invalidIndexError = "Index has to consist of 6 digits";
+                String invalidPasswordError = "Password length has to be from 5 up to 20";
+                String emptyFieldError = "All fields are required";
 
-                //Register user
-                String method = "REGISTER";
-                //We need to pass applicationContext() to Networking class because we will
-                //make a toast from there which has to take this context as a parameter.
-                Networking networking = new Networking(getApplicationContext(), SignUpActivity.this);
-                networking.execute(method, newStudent);
-
-
+                if(!newStudent.emptyFieldFound()) {
+                    if(newStudent.validateName()) {
+                        if(newStudent.validateIndexNo()) {
+                            if(newStudent.validatePassword()) {
+                                //Register user
+                                String method = "REGISTER";
+                                //We need to pass applicationContext() to Networking class because we will
+                                //make a toast from there which has to take this context as a parameter.
+                                Networking networking = new Networking(getApplicationContext(), SignUpActivity.this);
+                                networking.execute(method, newStudent);
+                            } else {
+                                Toast toast = Toast.makeText(getApplicationContext(), invalidPasswordError, Toast.LENGTH_SHORT);
+                                toast.show();
+                            }
+                        } else {
+                            Toast toast = Toast.makeText(getApplicationContext(), invalidIndexError, Toast.LENGTH_SHORT);
+                            toast.show();
+                        }
+                    } else {
+                        Toast toast = Toast.makeText(getApplicationContext(), invalidNameError, Toast.LENGTH_SHORT);
+                        toast.show();
+                    }
+                } else {
+                    Toast toast = Toast.makeText(getApplicationContext(), emptyFieldError, Toast.LENGTH_SHORT);
+                    toast.show();
+                }
 
             }
         });
