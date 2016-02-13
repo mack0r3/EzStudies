@@ -24,6 +24,8 @@ public class NewStudent {
         this.password = password;
     }
 
+
+
     public boolean emptyFieldFound()
     {
         NewStudent newStudent = new NewStudent(fname, lname, indexNo, group, password);

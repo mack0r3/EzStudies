@@ -21,6 +21,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Field;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -65,7 +66,7 @@ public class Networking extends AsyncTask<Object, Void, String>{
         //Firstly, we check, if user-to-be is in our Group DA1, or DA2;
         //If he is : continues
         //Otherwise return error.
-        String findIndexResponse = findIndex(newStudent.getIndexNo(), findIndexURL);
+        String findIndexResponse = findIndex(newStudent, findIndexURL);
         try {
             JSONObject indexJSON = new JSONObject(findIndexResponse);
             String indexSuccess = indexJSON.getString("success");
@@ -76,18 +77,7 @@ public class Networking extends AsyncTask<Object, Void, String>{
         }
 
         if (method.equals("REGISTER")) {
-            String data = "";
-            //TODO simplify dataEncoding
-            try {
-                data =  URLEncoder.encode("fname", "UTF-8") + "=" + URLEncoder.encode(newStudent.getFname(), "UTF-8") + "&" +
-                        URLEncoder.encode("lname", "UTF-8") + "=" + URLEncoder.encode(newStudent.getLname(), "UTF-8") + "&" +
-                        URLEncoder.encode("indexNo", "UTF-8") + "=" + URLEncoder.encode(newStudent.getIndexNo(), "UTF-8") + "&" +
-                        URLEncoder.encode("group", "UTF-8") + "=" + URLEncoder.encode(newStudent.getGroup(), "UTF-8") + "&" +
-                        URLEncoder.encode("password", "UTF-8") + "=" + URLEncoder.encode(newStudent.getPassword(), "UTF-8");
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-                _(e.getMessage());
-            }
+            String data = URLdataEncoder(newStudent, "fname", "lname", "indexNo", "group", "password");
             try {
                 URL url = new URL(registerURL);
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
@@ -105,6 +95,34 @@ public class Networking extends AsyncTask<Object, Void, String>{
         }
 
         return null;
+    }
+
+    private String URLdataEncoder(NewStudent newStudent, String... params)
+    {
+        String URLdataEncoded = "";
+        Field fields[] = newStudent.getClass().getDeclaredFields();
+        for(int i = 0; i < params.length; i++)
+        {
+            for(Field field : fields)
+            {
+                field.setAccessible(true);
+                if(field.getName().equals(params[i]))
+                {
+                    try {
+                        String value = (String)field.get(newStudent);
+                        URLdataEncoded += URLEncoder.encode(params[i], "UTF-8") + "=" + URLEncoder.encode(value, "UTF-8");
+                        if(i < params.length - 1)URLdataEncoded += "&";
+                    } catch (IllegalAccessException e) {
+                        e.printStackTrace();
+                        _(e.getMessage());
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                        _(e.getMessage());
+                    }
+                }
+            }
+        }
+        return URLdataEncoded;
     }
 
     private void sendURLData(HttpURLConnection httpURLConnection, String URLencodedData)
@@ -147,12 +165,12 @@ public class Networking extends AsyncTask<Object, Void, String>{
         return null;
     }
 
-    private String findIndex(String indexNumber, String findIndexUrl)
+    private String findIndex(NewStudent newStudent, String findIndexUrl)
     {
         try {
             URL url = new URL(findIndexUrl);
             HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
-            String data = URLEncoder.encode("indexNo", "UTF-8") + "=" + URLEncoder.encode(indexNumber, "UTF-8");
+            String data = URLdataEncoder(newStudent, "indexNo");
             sendURLData(httpURLConnection, data);
             String response = getJSON(httpURLConnection);
             httpURLConnection.disconnect();

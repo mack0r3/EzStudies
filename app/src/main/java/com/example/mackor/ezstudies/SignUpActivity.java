@@ -101,7 +101,6 @@ public class SignUpActivity extends AppCompatActivity {
                     Toast toast = Toast.makeText(getApplicationContext(), emptyFieldError, Toast.LENGTH_SHORT);
                     toast.show();
                 }
-
             }
         });
 
