@@ -1,4 +1,4 @@
-package com.example.mackor.ezstudies;
+package com.example.mackor.ezstudies.FrontEndTools;
 
 import android.content.Context;
 import android.graphics.Typeface;

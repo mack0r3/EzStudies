@@ -11,6 +11,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import com.example.mackor.ezstudies.BackEndTools.Networking;
+import com.example.mackor.ezstudies.FrontEndTools.FontManager;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -71,7 +75,7 @@ public class SignUpActivity extends AppCompatActivity {
                 String method = "REGISTER";
                 //We need to pass applicationContext() to Networking class because we will
                 //make a toast from there which has to take this context as a parameter.
-                Networking networking = new Networking(getApplicationContext());
+                Networking networking = new Networking(getApplicationContext(), SignUpActivity.this);
                 networking.execute(method, newStudent);
 
 

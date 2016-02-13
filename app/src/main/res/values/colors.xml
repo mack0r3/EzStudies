@@ -10,4 +10,7 @@
     <color name="hintColor">#7f8c8d</color>
     <color name="inputIconColor">#7f8c8d</color>
     <color name="inputTextColor">#ecf0f1</color>
+    <color name="myToastBgColorSuccess">#27ae60</color>
+    <color name="myToastBgColorError">#c0392b</color>
+    <color name="myToastTextColor">#000000</color>
 </resources>
