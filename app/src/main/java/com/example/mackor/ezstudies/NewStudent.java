@@ -62,26 +62,6 @@ public class NewStudent {
         return (password.length() >= 5 && password.length() <= 20);
     }
 
-    public String getFname() {
-        return fname;
-    }
-
-    public String getLname() {
-        return lname;
-    }
-
-    public String getIndexNo() {
-        return indexNo;
-    }
-
-    public String getGroup() {
-        return group;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
     private void _(String message)
     {
         Log.v("ERRORS", message);

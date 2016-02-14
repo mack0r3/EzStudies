@@ -108,7 +108,7 @@ public class SignUpActivity extends AppCompatActivity {
 
     public void _(String message)
     {
-        Log.v("EzStudies", message);
+        Log.v("ERRORS", message);
     }
 
     public void hideKeyboard()

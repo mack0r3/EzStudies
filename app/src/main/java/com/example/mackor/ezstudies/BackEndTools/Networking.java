@@ -24,6 +24,7 @@ import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Field;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
+import java.net.ProtocolException;
 import java.net.URL;
 import java.net.URLEncoder;
 
@@ -56,47 +57,62 @@ public class Networking extends AsyncTask<Object, Void, String>{
 
     @Override
     protected String doInBackground(Object... params) {
-        String findIndexURL = "http://46.101.168.84/EzStudiesCRUD/find_index.php";
         String registerURL = "http://46.101.168.84/EzStudiesCRUD/register.php";
         String method = (String) params[0];
         NewStudent newStudent = (NewStudent) params[1];
 
         if(!isConnectedToInternet(context)) return "{\"success\":\"false\",\"message\":\"Connection problem\"}";
 
-        //Firstly, we check, if user-to-be is in our Group DA1, or DA2;
-        //If he is : continues
-        //Otherwise return error.
-        String findIndexResponse = findIndex(newStudent, findIndexURL);
-        try {
-            JSONObject indexJSON = new JSONObject(findIndexResponse);
-            String indexSuccess = indexJSON.getString("success");
-            String indexMessage = indexJSON.getString("message");
-            if(indexSuccess.equals("false")) return indexJSON.toString();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
+        //Registration process
         if (method.equals("REGISTER")) {
             String data = URLdataEncoder(newStudent, "fname", "lname", "indexNo", "group", "password");
-            try {
-                URL url = new URL(registerURL);
-                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-                sendURLData(httpURLConnection, data);
-                httpURLConnection.disconnect();
-                return (getJSON(httpURLConnection));
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-                _(e.getMessage());
-            } catch (IOException e) {
-                e.printStackTrace();
-                _(e.getMessage());
-            }
-
+            return makeHttpPOSTRequest(registerURL, data);
         }
-
         return null;
     }
 
+
+    protected String makeHttpPOSTRequest(String registerURL, String URLDataEncoded)
+    {
+        try {
+            URL url = new URL(registerURL);
+            HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+            httpURLConnection.setRequestMethod("POST");
+            httpURLConnection.setDoOutput(true);
+            OutputStream outputStream = httpURLConnection.getOutputStream();
+            BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+            bufferedWriter.write(URLDataEncoded);
+            bufferedWriter.flush();
+            bufferedWriter.close();
+            outputStream.close();
+            InputStream inputStream;
+            inputStream = httpURLConnection.getInputStream();
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
+            String response = "";
+            String line = "";
+            while((line = bufferedReader.readLine()) != null)
+            {
+                response += line;
+            }
+            inputStream.close();
+            bufferedReader.close();
+            httpURLConnection.disconnect();
+            return response;
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+            _(e.getMessage());
+        } catch (ProtocolException e) {
+            e.printStackTrace();
+            _(e.getMessage());
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+            _(e.getMessage());
+        } catch (IOException e) {
+            e.printStackTrace();
+            _(e.getMessage());
+        }
+        return null;
+    }
     private String URLdataEncoder(NewStudent newStudent, String... params)
     {
         String URLdataEncoded = "";
@@ -124,68 +140,6 @@ public class Networking extends AsyncTask<Object, Void, String>{
         }
         return URLdataEncoded;
     }
-
-    private void sendURLData(HttpURLConnection httpURLConnection, String URLencodedData)
-    {
-        try {
-            httpURLConnection.setRequestMethod("POST");
-            httpURLConnection.setDoOutput(true);
-            OutputStream outputStream = httpURLConnection.getOutputStream();
-            BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
-            bufferedWriter.write(URLencodedData);
-            bufferedWriter.flush();
-            bufferedWriter.close();
-            outputStream.close();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-            _("sendURLData connection error: " + e.getMessage());
-        }
-    }
-
-    private String getJSON(HttpURLConnection httpURLConnection)
-    {
-        InputStream inputStream = null;
-        try {
-            inputStream = httpURLConnection.getInputStream();
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
-            String response = "";
-            String line = "";
-            while((line = bufferedReader.readLine()) != null)
-            {
-                response += line;
-            }
-            inputStream.close();
-            bufferedReader.close();
-            return response;
-        } catch (IOException e) {
-            e.printStackTrace();
-            _("getJSON connection error: " + e.getMessage());
-        }
-        return null;
-    }
-
-    private String findIndex(NewStudent newStudent, String findIndexUrl)
-    {
-        try {
-            URL url = new URL(findIndexUrl);
-            HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
-            String data = URLdataEncoder(newStudent, "indexNo");
-            sendURLData(httpURLConnection, data);
-            String response = getJSON(httpURLConnection);
-            httpURLConnection.disconnect();
-            return response;
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-            _("MalformedURLException: " + e.getMessage());
-            return "{\"success\":\"false\",\"message\":\"Contact Maciek ASAP!\"}";
-        } catch (IOException e) {
-            e.printStackTrace();
-            _("IOException: " + e.getMessage());
-            return "{\"success\":\"false\",\"message\":\"Connection problem\"}";
-        }
-    }
-
     public boolean isConnectedToInternet(Context context){
         ConnectivityManager connectivity = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
         if (connectivity != null)
