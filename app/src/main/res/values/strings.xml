@@ -3,6 +3,7 @@
     <string name="textLoginButton">Log in</string>
     <string name="textRegisterButton">Sign up</string>
     <string name="RegistrationText">Registration</string>
+    <string name="LoginText">Login</string>
 
     <!-- FontAwesome -->
 
