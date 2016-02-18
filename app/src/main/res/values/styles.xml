@@ -8,4 +8,24 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="MyCustomTabLayout" parent="Widget.Design.TabLayout">
+        <!--<item name="tabMaxWidth">@dimen/tab_max_width</item> -->
+
+        <item name="tabSelectedTextColor">@color/colorText</item>
+        <item name="tabIndicatorColor">#27ae60</item>
+        <item name="tabIndicatorHeight">2dp</item>
+        <item name="tabPaddingStart">12dp</item>
+        <item name="tabPaddingEnd">12dp</item>
+        <item name="tabTextAppearance">@style/MyCustomTabTextAppearance</item>
+    </style>
+    <style name="MyCustomTabTextAppearance" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">25sp</item>
+        <item name="android:textColor">@color/colorText</item>
+        <item name="textAllCaps">true</item>
+    </style>
+    <style name="ThemeName" parent="@style/AppTheme">
+        <item name="actionMenuTextColor">@color/colorText</item>
+        <item name="android:actionMenuTextColor">@color/colorText</item>
+    </style>
+
 </resources>

@@ -8,13 +8,10 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
-import android.content.SharedPreferences;
 
-import com.example.mackor.ezstudies.FrontEndTools.MyToast;
 import com.example.mackor.ezstudies.LogStudent;
 import com.example.mackor.ezstudies.NewStudent;
-import com.example.mackor.ezstudies.SignInActivity;
-import com.example.mackor.ezstudies.TestActivity;
+import com.example.mackor.ezstudies.UserPanelActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -37,10 +34,11 @@ import java.net.URLEncoder;
 /**
  * Created by Bogus on 2016-02-11.
  */
-public class Networking extends AsyncTask<Object, Void, String>{
+public class Networking extends AsyncTask<Object, Void, String> {
 
     private Context context;
     private Activity activity;
+
     public Networking(Context context, Activity activity) {
         this.context = context;
         this.activity = activity;
@@ -61,17 +59,15 @@ public class Networking extends AsyncTask<Object, Void, String>{
         }
         Toast toast = Toast.makeText(context, message, Toast.LENGTH_SHORT);
         toast.show();
-        _("Method :" + method);
-        if(success && method.equals("REGISTER"))activity.finish();
-        if(success && method.equals("LOGIN"))
-        {
-            //Save info, that user has logged in.
-            SharedPreferences sharedPreferences = activity.getSharedPreferences("MyPref", context.MODE_PRIVATE);
-            sharedPreferences.edit().putString("LOGIN_SESSION", "ON");
-            sharedPreferences.edit().commit();
+        if (success && method.equals("REGISTER")) activity.finish();
+        if (success && method.equals("LOGIN")) {
 
-            Intent intent = new Intent(context, TestActivity.class);
-            activity.startActivity(intent);
+            UserSessionManager userSessionManager = new UserSessionManager(context, activity);
+            userSessionManager.createUserLogginSession();
+
+            Intent intent = new Intent(activity, UserPanelActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            context.startActivity(intent);
         }
     }
 
@@ -81,10 +77,10 @@ public class Networking extends AsyncTask<Object, Void, String>{
         String loginURL = "http://46.101.168.84/EzStudiesCRUD/login.php";
         String method = (String) params[0];
 
-        if(!isConnectedToInternet(context)) return "{\"success\":\"false\",\"message\":\"Connection problem\"}";
+        if (!isConnectedToInternet(context))
+            return "{\"success\":\"false\",\"message\":\"Connection problem\"}";
 
-        switch(method)
-        {
+        switch (method) {
             case "REGISTER":
                 NewStudent newStudent = (NewStudent) params[1];
                 String regData = URLdataEncoder(newStudent, "fname", "lname", "indexNo", "group", "password");
@@ -100,8 +96,7 @@ public class Networking extends AsyncTask<Object, Void, String>{
     }
 
 
-    protected String makeHttpPOSTRequest(String registerURL, String URLDataEncoded)
-    {
+    protected String makeHttpPOSTRequest(String registerURL, String URLDataEncoded) {
         try {
             URL url = new URL(registerURL);
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
@@ -118,8 +113,7 @@ public class Networking extends AsyncTask<Object, Void, String>{
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
             String response = "";
             String line = "";
-            while((line = bufferedReader.readLine()) != null)
-            {
+            while ((line = bufferedReader.readLine()) != null) {
                 response += line;
             }
             inputStream.close();
@@ -141,21 +135,18 @@ public class Networking extends AsyncTask<Object, Void, String>{
         }
         return null;
     }
-    private String URLdataEncoder(Object object, String... params)
-    {
+
+    private String URLdataEncoder(Object object, String... params) {
         String URLdataEncoded = "";
         Field fields[] = object.getClass().getDeclaredFields();
-        for(int i = 0; i < params.length; i++)
-        {
-            for(Field field : fields)
-            {
+        for (int i = 0; i < params.length; i++) {
+            for (Field field : fields) {
                 field.setAccessible(true);
-                if(field.getName().equals(params[i]))
-                {
+                if (field.getName().equals(params[i])) {
                     try {
-                        String value = (String)field.get(object);
+                        String value = (String) field.get(object);
                         URLdataEncoded += URLEncoder.encode(params[i], "UTF-8") + "=" + URLEncoder.encode(value, "UTF-8");
-                        if(i < params.length - 1)URLdataEncoded += "&";
+                        if (i < params.length - 1) URLdataEncoded += "&";
                     } catch (IllegalAccessException e) {
                         e.printStackTrace();
                         _(e.getMessage());
@@ -168,15 +159,14 @@ public class Networking extends AsyncTask<Object, Void, String>{
         }
         return URLdataEncoded;
     }
-    public boolean isConnectedToInternet(Context context){
-        ConnectivityManager connectivity = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        if (connectivity != null)
-        {
+
+    public boolean isConnectedToInternet(Context context) {
+        ConnectivityManager connectivity = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivity != null) {
             NetworkInfo[] info = connectivity.getAllNetworkInfo();
             if (info != null)
                 for (int i = 0; i < info.length; i++)
-                    if (info[i].getState() == NetworkInfo.State.CONNECTED)
-                    {
+                    if (info[i].getState() == NetworkInfo.State.CONNECTED) {
                         return true;
                     }
 
@@ -184,8 +174,7 @@ public class Networking extends AsyncTask<Object, Void, String>{
         return false;
     }
 
-    private void _(String message)
-    {
+    private void _(String message) {
         Log.v("ERRORS", message);
     }
 }

@@ -22,7 +22,7 @@
             android:name=".SignUpActivity"
             android:windowSoftInputMode="stateHidden" />
         <activity android:name=".SignInActivity" />
-        <activity android:name=".TestActivity"></activity>
+        <activity android:name=".UserPanelActivity"></activity>
     </application>
 
 </manifest>

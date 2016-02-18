@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    android:theme="@style/ThemeName">
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/calculus_id"
+            android:name="android:itemTextAppearance"
+            android:icon="@drawable/calculus_icon"
+            android:title="Calculus">
+        </item>
+
+    </group>
+
+</menu>

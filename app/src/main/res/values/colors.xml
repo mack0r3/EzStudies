@@ -13,4 +13,23 @@
     <color name="myToastBgColorSuccess">#27ae60</color>
     <color name="myToastBgColorError">#c0392b</color>
     <color name="myToastTextColor">#000000</color>
+
+    <!-- Navigation Drawer Colors -->
+    <color name="navigationDrawerHeader">#ecf0f1</color>
+    <color name="navigationDrawerMenu">#272727</color>
+
+    <!-- Toolbar colors -->
+    <color name="toolbarColor">#353839</color>
+
+    <!-- ViewPager colors -->
+    <color name="viewPagerTextColor">#FFFFFF</color>
+
+    <!-- Group Fragments Colors -->
+    <color name="groupFragmentColor">#000000</color>
+
+    <!-- MainFragment Colors -->
+    <color name="mainFragmentBackground">#000000</color>
+
+
+
 </resources>
