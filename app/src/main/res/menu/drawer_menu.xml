@@ -10,6 +10,12 @@
             android:icon="@drawable/calculus_icon"
             android:title="Calculus">
         </item>
+        <item
+            android:id="@+id/logout_id"
+            android:name="android:itemTextAppearance"
+            android:icon="@drawable/logout_icon"
+            android:title="Log out">
+        </item>
 
     </group>
 

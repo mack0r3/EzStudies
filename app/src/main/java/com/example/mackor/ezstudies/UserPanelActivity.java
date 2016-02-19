@@ -11,6 +11,8 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
+import com.example.mackor.ezstudies.BackEndTools.UserSessionManager;
+
 public class UserPanelActivity extends AppCompatActivity {
 
     Toolbar toolbar;
@@ -58,6 +60,9 @@ public class UserPanelActivity extends AppCompatActivity {
                         drawerLayout.closeDrawers();
                         lastClikedItem = R.id.calculus_id;
                         break;
+                    case R.id.logout_id:
+                        UserSessionManager userSessionManager = new UserSessionManager(getApplicationContext(), UserPanelActivity.this);
+                        userSessionManager.logoutUser();
                 }
                 return false;
             }

@@ -37,44 +37,27 @@ import java.net.URLEncoder;
 public class Networking extends AsyncTask<Object, Void, String> {
 
     private Context context;
-    private Activity activity;
 
-    public Networking(Context context, Activity activity) {
+    public interface AsyncResponse {
+        void processFinish(String output);
+    }
+    public AsyncResponse delegate = null;
+
+    public Networking(Context context, AsyncResponse delegate){
+        this.delegate = delegate;
         this.context = context;
-        this.activity = activity;
     }
 
     @Override
     protected void onPostExecute(String result) {
-        String message = "";
-        String method = "";
-        boolean success = false;
-        try {
-            JSONObject json = new JSONObject(result);
-            message = json.getString("message");
-            method = json.getString("method");
-            success = json.getString("success").equals("true");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        Toast toast = Toast.makeText(context, message, Toast.LENGTH_SHORT);
-        toast.show();
-        if (success && method.equals("REGISTER")) activity.finish();
-        if (success && method.equals("LOGIN")) {
-
-            UserSessionManager userSessionManager = new UserSessionManager(context, activity);
-            userSessionManager.createUserLogginSession();
-
-            Intent intent = new Intent(activity, UserPanelActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            context.startActivity(intent);
-        }
+        delegate.processFinish(result);
     }
 
     @Override
     protected String doInBackground(Object... params) {
         String registerURL = "http://46.101.168.84/EzStudiesCRUD/register.php";
         String loginURL = "http://46.101.168.84/EzStudiesCRUD/login.php";
+        String getResultsURL = "http://46.101.168.84/EzStudiesCRUD/get_results.php";
         String method = (String) params[0];
 
         if (!isConnectedToInternet(context))
@@ -90,6 +73,8 @@ public class Networking extends AsyncTask<Object, Void, String> {
                 String logData = URLdataEncoder(logStudent, "indexNo", "password");
                 String x = makeHttpPOSTRequest(loginURL, logData);
                 return x;
+            case "GETRESULTS":
+                return makeHttpPOSTRequest(getResultsURL, null);
             default:
                 return null;
         }
@@ -101,13 +86,16 @@ public class Networking extends AsyncTask<Object, Void, String> {
             URL url = new URL(registerURL);
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
             httpURLConnection.setRequestMethod("POST");
-            httpURLConnection.setDoOutput(true);
-            OutputStream outputStream = httpURLConnection.getOutputStream();
-            BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
-            bufferedWriter.write(URLDataEncoded);
-            bufferedWriter.flush();
-            bufferedWriter.close();
-            outputStream.close();
+            if(URLDataEncoded != null)
+            {
+                httpURLConnection.setDoOutput(true);
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+                bufferedWriter.write(URLDataEncoded);
+                bufferedWriter.flush();
+                bufferedWriter.close();
+                outputStream.close();
+            }
             InputStream inputStream;
             inputStream = httpURLConnection.getInputStream();
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));

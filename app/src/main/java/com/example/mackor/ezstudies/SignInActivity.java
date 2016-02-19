@@ -1,5 +1,6 @@
 package com.example.mackor.ezstudies;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,6 +12,9 @@ import android.widget.Toast;
 
 import com.example.mackor.ezstudies.BackEndTools.Networking;
 import com.example.mackor.ezstudies.FrontEndTools.FontManager;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class SignInActivity extends AppCompatActivity {
 
@@ -40,8 +44,23 @@ public class SignInActivity extends AppCompatActivity {
 
                 if(!logStudent.emptyFieldFound()) {
                     String method = "LOGIN";
-                    Networking networking = new Networking(getApplicationContext(), SignInActivity.this);
-                    networking.execute(method, logStudent);
+                    Networking networking = (Networking)new Networking(getApplicationContext(), new Networking.AsyncResponse() {
+                        @Override
+                        public void processFinish(String output) {
+                            try {
+                                JSONObject json = new JSONObject(output);
+                                Toast.makeText(getApplicationContext(), json.getString("message"), Toast.LENGTH_SHORT).show();
+                                if(json.getString("success").equals("true"))
+                                {
+                                    Intent intent = new Intent(getApplicationContext(), UserPanelActivity.class);
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                    startActivity(intent);
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }).execute(method, logStudent);
                 } else {
                     Toast toast = Toast.makeText(getApplicationContext(), emptyFieldError, Toast.LENGTH_SHORT);
                     toast.show();

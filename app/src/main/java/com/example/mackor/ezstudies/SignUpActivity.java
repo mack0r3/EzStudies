@@ -1,6 +1,7 @@
 package com.example.mackor.ezstudies;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,6 +16,9 @@ import android.widget.Toast;
 
 import com.example.mackor.ezstudies.BackEndTools.Networking;
 import com.example.mackor.ezstudies.FrontEndTools.FontManager;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.Arrays;
 import java.util.List;
@@ -81,10 +85,20 @@ public class SignUpActivity extends AppCompatActivity {
                             if(newStudent.validatePassword()) {
                                 //Register user
                                 String method = "REGISTER";
-                                //We need to pass applicationContext() to Networking class because we will
-                                //make a toast from there which has to take this context as a parameter.
-                                Networking networking = new Networking(getApplicationContext(), SignUpActivity.this);
-                                networking.execute(method, newStudent);
+                                //Najzajebistsza metoda na wysylanie odpowiedzi AsyncTask do innego activity <3
+                                Networking networking = (Networking)new Networking(getApplicationContext(), new Networking.AsyncResponse() {
+                                    @Override
+                                    public void processFinish(String output) {
+                                        try {
+                                            JSONObject json = new JSONObject(output);
+                                            Toast.makeText(getApplicationContext(), json.getString("message"), Toast.LENGTH_SHORT).show();
+                                            if(json.getString("success").equals("true"))finish();
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                }).execute(method, newStudent);
+
                             } else {
                                 Toast toast = Toast.makeText(getApplicationContext(), invalidPasswordError, Toast.LENGTH_SHORT);
                                 toast.show();
