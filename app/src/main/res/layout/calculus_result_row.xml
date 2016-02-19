@@ -1,28 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#101010"
-    android:layout_gravity="center"
-    android:weightSum="2">
+    android:orientation="horizontal"
+    android:paddingTop="10dp">
 
-    <TextView
+
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Large Text"
-        android:textAlignment="center"
-        android:textColor="@color/colorText"
-        android:id="@+id/indexNoTextView"
-        android:layout_weight="1"
-        android:padding="10dp"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Large Text"
-        android:textColor="@color/colorText"
-        android:id="@+id/pointsTextView"
-        android:padding="10dp"/>
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/indexNoIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="@string/fa_graduation_cap"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/colorText" />
+
+            <TextView
+                android:id="@+id/indexNoTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-condensed"
+                android:padding="10dp"
+                android:text="Large Text"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/colorText" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/pointsIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="@string/fa_check"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/colorText" />
+
+            <TextView
+                android:id="@+id/pointsTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-condensed"
+                android:padding="10dp"
+                android:layout_marginLeft="10dp"
+                android:text="Large Text"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/colorText" />
+        </LinearLayout>
+
+    </LinearLayout>
+
 </LinearLayout>

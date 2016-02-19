@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     android:background="@color/colorBlack"
     tools:context="com.example.mackor.ezstudies.Fragments.CalculusFragment">
-
     <android.support.design.widget.TabLayout
         android:id="@+id/tabLayout"
         android:layout_width="match_parent"
@@ -21,6 +20,5 @@
         android:layout_height="match_parent"
         android:id="@+id/viewPager">
     </android.support.v4.view.ViewPager>
-
 
 </LinearLayout>

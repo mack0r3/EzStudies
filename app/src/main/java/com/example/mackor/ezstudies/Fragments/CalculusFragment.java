@@ -35,7 +35,6 @@ public class CalculusFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         View inflatedView = inflater.inflate(R.layout.fragment_calculus, container, false);
 
         // Inflate the layout for this fragment
@@ -49,7 +48,6 @@ public class CalculusFragment extends Fragment {
         viewPagerAdapter = new ViewPagerAdapter(getFragmentManager(), getFragmentsList(), getTabTitles());
         viewPager.setAdapter(viewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
-
 
         return inflatedView;
     }

@@ -7,9 +7,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.mackor.ezstudies.BackEndTools.CustomJSONAdapter;
 import com.example.mackor.ezstudies.BackEndTools.Networking;
+import com.example.mackor.ezstudies.FrontEndTools.FontManager;
 import com.example.mackor.ezstudies.R;
 
 import org.json.JSONArray;
@@ -22,8 +24,8 @@ import org.json.JSONObject;
 public class DA2ListFragment extends ListFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
-        return inflater.inflate(R.layout.list_fragment_da2, container, false);
+        View inflatedView = inflater.inflate(R.layout.list_fragment_da2, container, false);
+        return inflatedView;
     }
 
     @Override
@@ -33,7 +35,7 @@ public class DA2ListFragment extends ListFragment {
             @Override
             public void processFinish(String output) {
                 try {
-                    JSONArray jsonArr = SortResults(new JSONArray(output), "DA1");
+                    JSONArray jsonArr = SortResults(new JSONArray(output), "DA2");
                     CustomJSONAdapter myAdapter = new CustomJSONAdapter(jsonArr, getActivity());
                     setListAdapter(myAdapter);
                 } catch (JSONException e) {
@@ -51,7 +53,6 @@ public class DA2ListFragment extends ListFragment {
         {
             try {
                 JSONObject json = jsonArr.getJSONObject(i);
-                Log.v("ERRORS", json.toString());
                 if(json.getString("group").equals(group))
                 {
                     newJSONArr.put(json);

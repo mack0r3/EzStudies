@@ -11,6 +11,7 @@
     <string name="fa_graduation_cap">&#xf19d;</string>
     <string name="fa_group">&#xf0c0;</string>
     <string name="fa_lock">&#xf023;</string>
+    <string name="fa_check">&#xf046;</string>
 
     <!-- Spinner -->
     <string-array name="group_array">

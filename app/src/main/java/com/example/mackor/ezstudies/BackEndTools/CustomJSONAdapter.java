@@ -1,12 +1,17 @@
 package com.example.mackor.ezstudies.BackEndTools;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.example.mackor.ezstudies.FrontEndTools.FontManager;
 import com.example.mackor.ezstudies.R;
 
 import org.json.JSONArray;
@@ -65,22 +70,49 @@ public class CustomJSONAdapter extends BaseAdapter {
         TextView indexNoTextView = (TextView)convertView.findViewById(R.id.indexNoTextView);
         TextView pointsTextView = (TextView)convertView.findViewById(R.id.pointsTextView);
 
+        TextView indexNumber = (TextView)convertView.findViewById(R.id.indexNoIcon);
+        TextView pointsTV = (TextView)convertView.findViewById(R.id.pointsIcon);
+
+        //Set textColor to white again.
+        indexNoTextView.setTextColor(ContextCompat.getColor(context, R.color.colorText));
+        pointsTextView.setTextColor(ContextCompat.getColor(context, R.color.colorText));
+        indexNumber.setTextColor(ContextCompat.getColor(context, R.color.colorText));
+        pointsTV.setTextColor(ContextCompat.getColor(context, R.color.colorText));
+
+        indexNumber.setTypeface(FontManager.getTypeface(context, FontManager.FONTAWESOME));
+        pointsTV.setTypeface(FontManager.getTypeface(context, FontManager.FONTAWESOME));
+
         JSONObject json = (JSONObject) getItem(position);
 
-        String indexNo = null;
+        String indexNo = null, group = null;
         int points = 0;
 
         try {
             indexNo = json.getString("indexNo");
             points = json.getInt("points");
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        indexNo += ":";
+        //Retrieve sharedPreferences data
+        int PRIVATE_MODE = 0;
+        String PREF_NAME = "LoginPreferences";
+        SharedPreferences sharedPreferences = context.getSharedPreferences(PREF_NAME, PRIVATE_MODE);
+        String prefIndexNo = sharedPreferences.getString("index", null);
 
         indexNoTextView.setText(indexNo);
         pointsTextView.setText(String.valueOf(points));
+
+        if(prefIndexNo != null && prefIndexNo.equals(indexNoTextView.getText()))
+        {
+            indexNoTextView.setTextColor(ContextCompat.getColor(context, R.color.highlightedRowColor));
+            pointsTextView.setTextColor(ContextCompat.getColor(context, R.color.highlightedRowColor));
+            indexNumber.setTextColor(ContextCompat.getColor(context, R.color.highlightedRowColor));
+            pointsTV.setTextColor(ContextCompat.getColor(context, R.color.highlightedRowColor));
+            Log.v("ERRORS", prefIndexNo +  "#" + indexNoTextView.getText());
+        }
+
 
         return convertView;
     }

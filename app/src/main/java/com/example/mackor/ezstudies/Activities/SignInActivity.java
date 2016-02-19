@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mackor.ezstudies.BackEndTools.Networking;
+import com.example.mackor.ezstudies.BackEndTools.UserSessionManager;
 import com.example.mackor.ezstudies.FrontEndTools.FontManager;
 import com.example.mackor.ezstudies.Models.LogStudent;
 import com.example.mackor.ezstudies.R;
@@ -40,7 +41,7 @@ public class SignInActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String emptyFieldError = "All fields are required";
 
-                String  indexNo = indexNoInput.getText().toString(),
+                final String  indexNo = indexNoInput.getText().toString(),
                         password = passwordInput.getText().toString();
                 LogStudent logStudent = new LogStudent(indexNo, password);
 
@@ -54,6 +55,8 @@ public class SignInActivity extends AppCompatActivity {
                                 Toast.makeText(getApplicationContext(), json.getString("message"), Toast.LENGTH_SHORT).show();
                                 if(json.getString("success").equals("true"))
                                 {
+                                    UserSessionManager userSessionManager = new UserSessionManager(getApplicationContext(), SignInActivity.this);
+                                    userSessionManager.createUserLogginSession(indexNo);
                                     Intent intent = new Intent(getApplicationContext(), UserPanelActivity.class);
                                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                     startActivity(intent);
