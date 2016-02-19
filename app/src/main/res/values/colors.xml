@@ -23,6 +23,7 @@
 
     <!-- ViewPager colors -->
     <color name="viewPagerTextColor">#FFFFFF</color>
+    <color name="viewPagerBackgroundColor">#101010</color>
 
     <!-- Group Fragments Colors -->
     <color name="groupFragmentColor">#000000</color>

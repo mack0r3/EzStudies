@@ -2,46 +2,46 @@
 <items version="2" >
 
     <item
-        jar="C:\Users\Korzonkie\Documents\Android Projects\ezstudies\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.1.1\jars\classes.jar"
-        jumboMode="false"
-        revision="23.0.2"
-        sha1="5c5699834e9722f1c288fea2de82725d078ba127">
-        <dex dex="C:\Users\Korzonkie\Documents\Android Projects\ezstudies\app\build\intermediates\pre-dexed\debug\classes-5c68bfaafc942d6bd5e389817b6dbc0e0e1be397.jar" />
-    </item>
-    <item
-        jar="C:\Users\Korzonkie\Documents\Android Projects\ezstudies\app\build\intermediates\exploded-aar\com.android.support\design\23.1.1\jars\classes.jar"
-        jumboMode="false"
-        revision="23.0.2"
-        sha1="379471b2bd17d9737c050345c08e8c7d16589784">
-        <dex dex="C:\Users\Korzonkie\Documents\Android Projects\ezstudies\app\build\intermediates\pre-dexed\debug\classes-e7b313eb372354e26355e27859f7c195cfb1fc46.jar" />
-    </item>
-    <item
-        jar="C:\Users\Korzonkie\Documents\Android Projects\ezstudies\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.1\jars\classes.jar"
-        jumboMode="false"
-        revision="23.0.2"
-        sha1="6cbc7773921fcfedbe55657578f0cbfe614778dc">
-        <dex dex="C:\Users\Korzonkie\Documents\Android Projects\ezstudies\app\build\intermediates\pre-dexed\debug\classes-ecf038c7bc6a4f412523a803a891f2f6812f4921.jar" />
-    </item>
-    <item
-        jar="C:\Users\Korzonkie\Documents\Android Projects\ezstudies\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.1\jars\libs\internal_impl-23.1.1.jar"
-        jumboMode="false"
-        revision="23.0.2"
-        sha1="a4de9c81ae239414e1ed0f86441b02abaf29bca9">
-        <dex dex="C:\Users\Korzonkie\Documents\Android Projects\ezstudies\app\build\intermediates\pre-dexed\debug\internal_impl-23.1.1-929c137cf99b71464c3d164aafd538a271818e28.jar" />
-    </item>
-    <item
-        jar="C:\Users\Korzonkie\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\23.1.1\support-annotations-23.1.1.jar"
-        jumboMode="false"
-        revision="23.0.2"
-        sha1="8d680ba5a623724d1fb0e81c36a790f023a6cede">
-        <dex dex="C:\Users\Korzonkie\Documents\Android Projects\ezstudies\app\build\intermediates\pre-dexed\debug\support-annotations-23.1.1-e3e11e8d8f67f1bed0cac2b7b24c5ae2586b54a8.jar" />
-    </item>
-    <item
-        jar="C:\Users\Korzonkie\Documents\Android Projects\ezstudies\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\23.1.1\jars\classes.jar"
+        jar="C:\Users\Bogus\Documents\ezstudies\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\23.1.1\jars\classes.jar"
         jumboMode="false"
         revision="23.0.2"
         sha1="09c5e804bc67fc0580360043dff067df574a60d4">
-        <dex dex="C:\Users\Korzonkie\Documents\Android Projects\ezstudies\app\build\intermediates\pre-dexed\debug\classes-f39ca59d01ae21623406cabfa8f5bc869f8a924e.jar" />
+        <dex dex="C:\Users\Bogus\Documents\ezstudies\app\build\intermediates\pre-dexed\debug\classes-fb18635866baacb6962edc46ebc6378466853f1a.jar" />
+    </item>
+    <item
+        jar="C:\Users\Bogus\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\23.1.1\support-annotations-23.1.1.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="8d680ba5a623724d1fb0e81c36a790f023a6cede">
+        <dex dex="C:\Users\Bogus\Documents\ezstudies\app\build\intermediates\pre-dexed\debug\support-annotations-23.1.1-e6cad9ca4b5fbf0cfe42729584a41a99d937ba4f.jar" />
+    </item>
+    <item
+        jar="C:\Users\Bogus\Documents\ezstudies\app\build\intermediates\exploded-aar\com.android.support\design\23.1.1\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="379471b2bd17d9737c050345c08e8c7d16589784">
+        <dex dex="C:\Users\Bogus\Documents\ezstudies\app\build\intermediates\pre-dexed\debug\classes-497a5265735102dcdddbdfc9e840d903a47c317d.jar" />
+    </item>
+    <item
+        jar="C:\Users\Bogus\Documents\ezstudies\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.1.1\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="5c5699834e9722f1c288fea2de82725d078ba127">
+        <dex dex="C:\Users\Bogus\Documents\ezstudies\app\build\intermediates\pre-dexed\debug\classes-bb1561b9f5939e8edac6f4d5f7ad1206cfebb0d5.jar" />
+    </item>
+    <item
+        jar="C:\Users\Bogus\Documents\ezstudies\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.1\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="6cbc7773921fcfedbe55657578f0cbfe614778dc">
+        <dex dex="C:\Users\Bogus\Documents\ezstudies\app\build\intermediates\pre-dexed\debug\classes-2737a5eacac5acf7ec782fa24117c69ac2524f44.jar" />
+    </item>
+    <item
+        jar="C:\Users\Bogus\Documents\ezstudies\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.1\jars\libs\internal_impl-23.1.1.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="a4de9c81ae239414e1ed0f86441b02abaf29bca9">
+        <dex dex="C:\Users\Bogus\Documents\ezstudies\app\build\intermediates\pre-dexed\debug\internal_impl-23.1.1-026de6e7169d4773c1bc9302251f01a5df42d0e6.jar" />
     </item>
 
 </items>

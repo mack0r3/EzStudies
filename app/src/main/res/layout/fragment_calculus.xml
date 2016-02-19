@@ -1,10 +1,11 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorBlack"
-    tools:context="com.example.mackor.ezstudies.CalculusFragment">
+    tools:context="com.example.mackor.ezstudies.Fragments.CalculusFragment">
 
     <android.support.design.widget.TabLayout
         android:id="@+id/tabLayout"
@@ -22,4 +23,4 @@
     </android.support.v4.view.ViewPager>
 
 
-</FrameLayout>
+</LinearLayout>

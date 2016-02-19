@@ -3,35 +3,33 @@ package com.example.mackor.ezstudies.BackEndTools;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.ListFragment;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Korzonkie on 2016-02-17.
  */
 public class ViewPagerAdapter extends FragmentPagerAdapter {
 
-    ArrayList<Fragment> fragments = new ArrayList<>();
-    ArrayList<String> tabTitles = new ArrayList<>();
+    List<ListFragment> fragmentsList = new ArrayList<>();
+    List<String> tabTitles = new ArrayList<>();
 
-    public void addFragments(Fragment fragment, String tabTitle)
-    {
-        this.fragments.add(fragment);
-        this.tabTitles.add(tabTitle);
-    }
-
-    public ViewPagerAdapter(FragmentManager fm) {
+    public ViewPagerAdapter(FragmentManager fm, List<ListFragment> fragmentsList, List<String> tabTitles) {
         super(fm);
+        this.fragmentsList = fragmentsList;
+        this.tabTitles = tabTitles;
     }
 
     @Override
     public Fragment getItem(int position) {
-        return fragments.get(position);
+        return fragmentsList.get(position);
     }
 
     @Override
     public int getCount() {
-        return fragments.size();
+        return fragmentsList.size();
     }
 
     @Override

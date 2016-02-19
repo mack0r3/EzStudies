@@ -1,20 +1,13 @@
 package com.example.mackor.ezstudies.BackEndTools;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.Toast;
 
-import com.example.mackor.ezstudies.LogStudent;
-import com.example.mackor.ezstudies.NewStudent;
-import com.example.mackor.ezstudies.UserPanelActivity;
-
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.example.mackor.ezstudies.Models.LogStudent;
+import com.example.mackor.ezstudies.Models.NewStudent;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 
-import com.example.mackor.ezstudies.SignInActivity;
+import com.example.mackor.ezstudies.Activities.SignInActivity;
 
 /**
  * Created by Korzonkie on 2016-02-17.

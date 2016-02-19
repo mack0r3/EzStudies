@@ -62,22 +62,25 @@ public class CustomJSONAdapter extends BaseAdapter {
             convertView = layoutInflater.inflate(R.layout.calculus_result_row, null);
         }
 
-        TextView textView1 = (TextView)convertView.findViewById(R.id.textView1);
-        TextView textView2 = (TextView)convertView.findViewById(R.id.textView2);
+        TextView indexNoTextView = (TextView)convertView.findViewById(R.id.indexNoTextView);
+        TextView pointsTextView = (TextView)convertView.findViewById(R.id.pointsTextView);
 
         JSONObject json = (JSONObject) getItem(position);
 
-        String text1 = null, text2 = null;
+        String indexNo = null;
+        int points = 0;
 
         try {
-            text1 = json.getString("indexNo");
-            text2 = json.getString("group");
+            indexNo = json.getString("indexNo");
+            points = json.getInt("points");
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        textView1.setText(text1);
-        textView2.setText(text2);
+        indexNo += ":";
+
+        indexNoTextView.setText(indexNo);
+        pointsTextView.setText(String.valueOf(points));
 
         return convertView;
     }
