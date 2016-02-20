@@ -31,7 +31,7 @@ public class DA2ListFragment extends ListFragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        Networking networking = (Networking) new Networking(getActivity(), new Networking.AsyncResponse() {
+        Networking networking = (Networking) new Networking(getActivity(), getContext(), new Networking.AsyncResponse() {
             @Override
             public void processFinish(String output) {
                 try {

@@ -22,7 +22,7 @@
         <item name="android:textColor">@color/colorText</item>
         <item name="textAllCaps">true</item>
     </style>
-    <style name="ThemeName" parent="@style/AppTheme">
+    <style name="MenuTheme" parent="@style/AppTheme">
         <item name="actionMenuTextColor">@color/colorText</item>
         <item name="android:actionMenuTextColor">@color/colorText</item>
     </style>

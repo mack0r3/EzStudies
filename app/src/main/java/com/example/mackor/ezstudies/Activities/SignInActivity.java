@@ -1,10 +1,12 @@
 package com.example.mackor.ezstudies.Activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -47,7 +49,7 @@ public class SignInActivity extends AppCompatActivity {
 
                 if(!logStudent.emptyFieldFound()) {
                     String method = "LOGIN";
-                    Networking networking = (Networking)new Networking(getApplicationContext(), new Networking.AsyncResponse() {
+                    Networking networking = (Networking)new Networking(SignInActivity.this, getApplicationContext(), new Networking.AsyncResponse() {
                         @Override
                         public void processFinish(String output) {
                             try {
@@ -55,6 +57,7 @@ public class SignInActivity extends AppCompatActivity {
                                 Toast.makeText(getApplicationContext(), json.getString("message"), Toast.LENGTH_SHORT).show();
                                 if(json.getString("success").equals("true"))
                                 {
+                                    hideKeyboard();
                                     UserSessionManager userSessionManager = new UserSessionManager(getApplicationContext(), SignInActivity.this);
                                     userSessionManager.createUserLogginSession(indexNo);
                                     Intent intent = new Intent(getApplicationContext(), UserPanelActivity.class);
@@ -76,5 +79,13 @@ public class SignInActivity extends AppCompatActivity {
     public void _(String message)
     {
         Log.v("ERRORS", message);
+    }
+    public void hideKeyboard()
+    {
+        InputMethodManager inputManager = (InputMethodManager)
+                getSystemService(Context.INPUT_METHOD_SERVICE);
+
+        inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
+                InputMethodManager.HIDE_NOT_ALWAYS);
     }
 }

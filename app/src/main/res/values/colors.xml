@@ -15,8 +15,9 @@
     <color name="myToastTextColor">#000000</color>
 
     <!-- Navigation Drawer Colors -->
-    <color name="navigationDrawerHeader">#ecf0f1</color>
+    <color name="navigationDrawerHeader">#006699</color>
     <color name="navigationDrawerMenu">#272727</color>
+    <color name="calculusIconColor">#27ae60</color>
 
     <!-- Toolbar colors -->
     <color name="toolbarColor">#353839</color>

@@ -87,7 +87,7 @@ public class SignUpActivity extends AppCompatActivity {
                                 //Register user
                                 String method = "REGISTER";
                                 //Najzajebistsza metoda na wysylanie odpowiedzi AsyncTask do innego activity <3
-                                Networking networking = (Networking)new Networking(getApplicationContext(), new Networking.AsyncResponse() {
+                                Networking networking = (Networking)new Networking(SignUpActivity.this, getApplicationContext(), new Networking.AsyncResponse() {
                                     @Override
                                     public void processFinish(String output) {
                                         try {

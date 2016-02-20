@@ -1,13 +1,17 @@
 package com.example.mackor.ezstudies.BackEndTools;
 
+import android.app.Activity;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import com.example.mackor.ezstudies.Models.LogStudent;
 import com.example.mackor.ezstudies.Models.NewStudent;
+import com.example.mackor.ezstudies.R;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -30,20 +34,31 @@ import java.net.URLEncoder;
 public class Networking extends AsyncTask<Object, Void, String> {
 
     private Context context;
+    private Activity activity;
 
     public interface AsyncResponse {
         void processFinish(String output);
     }
     public AsyncResponse delegate = null;
 
-    public Networking(Context context, AsyncResponse delegate){
+    public Networking(Activity activity, Context context, AsyncResponse delegate){
         this.delegate = delegate;
         this.context = context;
+        this.activity = activity;
+    }
+
+
+    @Override
+    protected void onPreExecute() {
+        ProgressBar progressBar = (ProgressBar) activity.findViewById(R.id.myProgressBar);
+        progressBar.setVisibility(View.VISIBLE);
     }
 
     @Override
     protected void onPostExecute(String result) {
         delegate.processFinish(result);
+        ProgressBar progressBar = (ProgressBar) ((Activity)context).findViewById(R.id.myProgressBar);
+        progressBar.setVisibility(View.GONE);
     }
 
     @Override
@@ -54,7 +69,10 @@ public class Networking extends AsyncTask<Object, Void, String> {
         String method = (String) params[0];
 
         if (!isConnectedToInternet(context))
+        {
             return "{\"success\":\"false\",\"message\":\"Connection problem\"}";
+        }
+
 
         switch (method) {
             case "REGISTER":
@@ -154,6 +172,7 @@ public class Networking extends AsyncTask<Object, Void, String> {
         }
         return false;
     }
+
 
     private void _(String message) {
         Log.v("ERRORS", message);

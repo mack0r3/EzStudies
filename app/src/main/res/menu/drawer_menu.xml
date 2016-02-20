@@ -1,22 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    android:theme="@style/ThemeName">
+    android:theme="@style/MenuTheme">
 
-    <group android:checkableBehavior="single">
+    <group
+        android:id="@+id/subjectsMenu"
+        android:checkableBehavior="single">
 
         <item
             android:id="@+id/calculus_id"
             android:name="android:itemTextAppearance"
-            android:icon="@drawable/calculus_icon"
-            android:title="Calculus">
-        </item>
+            android:icon="@drawable/fa_calculator"
+            android:title="Calculus"/>
+    </group>
+    <group
+        android:id="@+id/settingsMenu"
+        android:checkableBehavior="single">
         <item
             android:id="@+id/logout_id"
             android:name="android:itemTextAppearance"
-            android:icon="@drawable/logout_icon"
-            android:title="Log out">
-        </item>
-
+            android:icon="@drawable/fa_sign_out"
+            android:title="Log out"/>
     </group>
 
 </menu>

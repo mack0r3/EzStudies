@@ -10,10 +10,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import com.example.mackor.ezstudies.BackEndTools.UserSessionManager;
 import com.example.mackor.ezstudies.Fragments.CalculusFragment;
+import com.example.mackor.ezstudies.Fragments.DA1ListFragment;
 import com.example.mackor.ezstudies.Fragments.MainFragment;
+import com.example.mackor.ezstudies.FrontEndTools.FontManager;
 import com.example.mackor.ezstudies.R;
 
 public class UserPanelActivity extends AppCompatActivity {
@@ -70,6 +74,24 @@ public class UserPanelActivity extends AppCompatActivity {
                 return false;
             }
         });
+        //navigationView.getMenu();
+        //navigationView.inflateMenu(R.menu.drawer_menu);
+
+
+        //Change header view programmatically
+        View headerView = navigationView.inflateHeaderView(R.layout.navigation_drawer_header);
+        TextView headerNameIcon = (TextView)headerView.findViewById(R.id.header_name_icon);
+        TextView headerName = (TextView)headerView.findViewById(R.id.header_name);
+        TextView headerGroupIcon = (TextView)headerView.findViewById(R.id.header_group_icon);
+        TextView headerGroup = (TextView)headerView.findViewById(R.id.header_group);
+        TextView headerCalculusPointsIcon = (TextView)headerView.findViewById(R.id.header_calculus_points_icon);
+        TextView headerCalculusPoints = (TextView)headerView.findViewById(R.id.header_calculus_points);
+
+        //Font Awesome
+        headerNameIcon.setTypeface(FontManager.getTypeface(getApplicationContext(), FontManager.FONTAWESOME));
+        headerGroupIcon.setTypeface(FontManager.getTypeface(getApplicationContext(), FontManager.FONTAWESOME));
+        headerCalculusPointsIcon.setTypeface(FontManager.getTypeface(getApplicationContext(), FontManager.FONTAWESOME));
+
 
     }
 

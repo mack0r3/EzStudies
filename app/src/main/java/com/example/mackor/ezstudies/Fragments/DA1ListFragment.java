@@ -6,12 +6,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.mackor.ezstudies.BackEndTools.CustomJSONAdapter;
 import com.example.mackor.ezstudies.BackEndTools.Networking;
-import com.example.mackor.ezstudies.FrontEndTools.FontManager;
 import com.example.mackor.ezstudies.R;
 
 import org.json.JSONArray;
@@ -31,7 +29,10 @@ public class DA1ListFragment extends ListFragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        Networking networking = (Networking) new Networking(getActivity(), new Networking.AsyncResponse() {
+
+
+
+        Networking networking = (Networking) new Networking(getActivity(), getContext(), new Networking.AsyncResponse() {
             @Override
             public void processFinish(String output) {
                 try {
@@ -47,7 +48,7 @@ public class DA1ListFragment extends ListFragment {
 
     }
 
-    public JSONArray SortResults(JSONArray jsonArr, String group) {
+    private JSONArray SortResults(JSONArray jsonArr, String group) {
         JSONArray newJSONArr = new JSONArray();
         for (int i = 0; i < jsonArr.length(); i++) {
             try {
