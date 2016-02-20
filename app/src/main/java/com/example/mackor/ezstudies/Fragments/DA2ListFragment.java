@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.mackor.ezstudies.BackEndTools.CustomJSONAdapter;
@@ -22,16 +23,20 @@ import org.json.JSONObject;
  * Created by Bogus on 2016-02-19.
  */
 public class DA2ListFragment extends ListFragment {
+
+    ProgressBar progressBar;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View inflatedView = inflater.inflate(R.layout.list_fragment_da2, container, false);
+        progressBar = (ProgressBar)inflatedView.findViewById(R.id.myProgressBar);
         return inflatedView;
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        Networking networking = (Networking) new Networking(getActivity(), getContext(), new Networking.AsyncResponse() {
+        Networking networking = (Networking) new Networking(progressBar, getContext(), new Networking.AsyncResponse() {
             @Override
             public void processFinish(String output) {
                 try {

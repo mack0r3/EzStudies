@@ -34,31 +34,28 @@ import java.net.URLEncoder;
 public class Networking extends AsyncTask<Object, Void, String> {
 
     private Context context;
-    private Activity activity;
+    private ProgressBar progressBar;
 
     public interface AsyncResponse {
         void processFinish(String output);
     }
     public AsyncResponse delegate = null;
 
-    public Networking(Activity activity, Context context, AsyncResponse delegate){
+    public Networking(ProgressBar progressbar, Context context, AsyncResponse delegate){
+        this.progressBar = progressbar;
         this.delegate = delegate;
         this.context = context;
-        this.activity = activity;
     }
-
+    @Override
+    protected void onPostExecute(String result) {
+        progressBar.setVisibility(View.GONE);
+        delegate.processFinish(result);
+    }
 
     @Override
     protected void onPreExecute() {
-        ProgressBar progressBar = (ProgressBar) activity.findViewById(R.id.myProgressBar);
         progressBar.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    protected void onPostExecute(String result) {
-        delegate.processFinish(result);
-        ProgressBar progressBar = (ProgressBar) ((Activity)context).findViewById(R.id.myProgressBar);
-        progressBar.setVisibility(View.GONE);
+        super.onPreExecute();
     }
 
     @Override

@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,9 +29,11 @@ public class SignInActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
 
+
         TextView indexNoIc = (TextView)findViewById(R.id.index_number_input_icon);
         TextView passwordIc = (TextView)findViewById(R.id.password_input_icon);
 
+        final ProgressBar progressBar = (ProgressBar)findViewById(R.id.myProgressBar);
         final EditText indexNoInput = (EditText)findViewById(R.id.index_number_input);
         final EditText passwordInput = (EditText)findViewById(R.id.password_input);
 
@@ -48,8 +51,10 @@ public class SignInActivity extends AppCompatActivity {
                 LogStudent logStudent = new LogStudent(indexNo, password);
 
                 if(!logStudent.emptyFieldFound()) {
+                    hideKeyboard();
                     String method = "LOGIN";
-                    Networking networking = (Networking)new Networking(SignInActivity.this, getApplicationContext(), new Networking.AsyncResponse() {
+
+                    Networking networking = (Networking)new Networking(progressBar, getApplicationContext(), new Networking.AsyncResponse() {
                         @Override
                         public void processFinish(String output) {
                             try {
@@ -57,7 +62,6 @@ public class SignInActivity extends AppCompatActivity {
                                 Toast.makeText(getApplicationContext(), json.getString("message"), Toast.LENGTH_SHORT).show();
                                 if(json.getString("success").equals("true"))
                                 {
-                                    hideKeyboard();
                                     UserSessionManager userSessionManager = new UserSessionManager(getApplicationContext(), SignInActivity.this);
                                     userSessionManager.createUserLogginSession(indexNo);
                                     Intent intent = new Intent(getApplicationContext(), UserPanelActivity.class);

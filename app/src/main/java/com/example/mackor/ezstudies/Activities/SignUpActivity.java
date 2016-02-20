@@ -9,6 +9,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,6 +42,7 @@ public class SignUpActivity extends AppCompatActivity {
         final EditText lnameInput = (EditText)findViewById(R.id.last_name_input);
         final EditText indexNoInput = (EditText)findViewById(R.id.index_number_input);
         final EditText passwordInput = (EditText)findViewById(R.id.password_input);
+        final ProgressBar progressBar = (ProgressBar)findViewById(R.id.myProgressBar);
 
         fnameIc.setTypeface(FontManager.getTypeface(getApplicationContext(), FontManager.FONTAWESOME));
         lnameIc.setTypeface(FontManager.getTypeface(getApplicationContext(), FontManager.FONTAWESOME));
@@ -87,7 +89,7 @@ public class SignUpActivity extends AppCompatActivity {
                                 //Register user
                                 String method = "REGISTER";
                                 //Najzajebistsza metoda na wysylanie odpowiedzi AsyncTask do innego activity <3
-                                Networking networking = (Networking)new Networking(SignUpActivity.this, getApplicationContext(), new Networking.AsyncResponse() {
+                                Networking networking = (Networking)new Networking(progressBar, getApplicationContext(), new Networking.AsyncResponse() {
                                     @Override
                                     public void processFinish(String output) {
                                         try {
