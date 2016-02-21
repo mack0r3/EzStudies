@@ -85,7 +85,13 @@ public class Networking extends AsyncTask<Object, Void, String> {
             case "GETRESULTS":
                 return makeHttpPOSTRequest(getResultsURL, null);
             case "GETINFO":
-                return makeHttpPOSTRequest(getUserInfoURL, null);
+                String URLDataEncoded = "";
+                try {
+                    URLDataEncoded = URLEncoder.encode("indexNo", "UTF-8") + "=" + URLEncoder.encode(params[1].toString(), "UTF-8");
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+                return makeHttpPOSTRequest(getUserInfoURL, URLDataEncoded);
             default:
                 return null;
         }

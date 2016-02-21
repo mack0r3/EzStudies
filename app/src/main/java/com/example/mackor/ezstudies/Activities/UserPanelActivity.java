@@ -106,7 +106,6 @@ public class UserPanelActivity extends AppCompatActivity {
             @Override
             public void processFinish(String output) {
                 try {
-
                     View view = findViewById(R.id.loggedUserInfo);
                     view.setVisibility(View.VISIBLE);
 
