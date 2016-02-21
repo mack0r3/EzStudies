@@ -24,6 +24,9 @@ import com.example.mackor.ezstudies.Fragments.MainFragment;
 import com.example.mackor.ezstudies.FrontEndTools.FontManager;
 import com.example.mackor.ezstudies.R;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class UserPanelActivity extends AppCompatActivity {
 
     Toolbar toolbar;
@@ -84,12 +87,12 @@ public class UserPanelActivity extends AppCompatActivity {
 
         //Change header view programmatically
         View headerView = navigationView.inflateHeaderView(R.layout.navigation_drawer_header);
-        TextView headerNameIcon = (TextView)headerView.findViewById(R.id.header_name_icon);
-        TextView headerGroupIcon = (TextView)headerView.findViewById(R.id.header_group_icon);
-        TextView headerCalculusPointsIcon = (TextView)headerView.findViewById(R.id.header_calculus_points_icon);
-        TextView headerName = (TextView)headerView.findViewById(R.id.header_name);
-        TextView headerGroup = (TextView)headerView.findViewById(R.id.header_group);
-        TextView headerCalculusPoints = (TextView)headerView.findViewById(R.id.header_calculus_points);
+        final TextView headerNameIcon = (TextView)headerView.findViewById(R.id.header_name_icon);
+        final TextView headerGroupIcon = (TextView)headerView.findViewById(R.id.header_group_icon);
+        final TextView headerCalculusPointsIcon = (TextView)headerView.findViewById(R.id.header_calculus_points_icon);
+        final TextView headerName = (TextView)headerView.findViewById(R.id.header_name);
+        final TextView headerGroup = (TextView)headerView.findViewById(R.id.header_group);
+        final TextView headerCalculusPoints = (TextView)headerView.findViewById(R.id.header_calculus_points);
 
         //Font Awesome
         headerNameIcon.setTypeface(FontManager.getTypeface(getApplicationContext(), FontManager.FONTAWESOME));
@@ -102,11 +105,23 @@ public class UserPanelActivity extends AppCompatActivity {
         Networking networking = (Networking)new Networking(progressBar, getApplicationContext(), new Networking.AsyncResponse() {
             @Override
             public void processFinish(String output) {
-                Log.v("ERRORS", output);
+                try {
+
+                    View view = findViewById(R.id.loggedUserInfo);
+                    view.setVisibility(View.VISIBLE);
+
+                    JSONObject json = new JSONObject(output);
+                    String firstName = json.getString("fname").substring(0, 1).toUpperCase() + json.getString("fname").substring(1);
+                    String lastName = json.getString("lname").substring(0, 1).toUpperCase() + json.getString("lname").substring(1);
+                    headerName.setText(firstName + " " + lastName);
+                    headerGroup.setText(json.getString("group"));
+                    headerCalculusPoints.setText(json.getString("points"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
             }
         }).execute(method, indexNo);
-
-
     }
 
     @Override

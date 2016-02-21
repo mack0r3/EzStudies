@@ -5,10 +5,12 @@
     android:background="@color/navigationDrawerHeader">
 
     <LinearLayout
+        android:id="@+id/loggedUserInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="gone">
 
         <LinearLayout
             android:id="@+id/headerNameRow"
@@ -33,7 +35,6 @@
                 android:id="@+id/header_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Maciej Korzeniewski"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="@color/colorText"
                 android:textSize="18sp" />
@@ -62,7 +63,6 @@
                 android:id="@+id/header_group"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="DA1"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="@color/colorText"
                 android:textSize="18sp" />
@@ -101,7 +101,6 @@
                 android:id="@+id/header_calculus_points"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="7"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="@color/colorText"
                 android:textSize="18sp" />
@@ -114,8 +113,8 @@
         style="?android:attr/progressBarStyleLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="invisible"
-        android:layout_centerInParent="true"/>
+        android:layout_centerInParent="true"
+        android:visibility="invisible" />
 
 
 </RelativeLayout>
