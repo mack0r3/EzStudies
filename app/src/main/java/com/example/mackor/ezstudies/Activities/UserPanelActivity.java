@@ -1,5 +1,6 @@
 package com.example.mackor.ezstudies.Activities;
 
+import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.support.design.widget.NavigationView;
@@ -9,10 +10,13 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.example.mackor.ezstudies.BackEndTools.Networking;
 import com.example.mackor.ezstudies.BackEndTools.UserSessionManager;
 import com.example.mackor.ezstudies.Fragments.CalculusFragment;
 import com.example.mackor.ezstudies.Fragments.DA1ListFragment;
@@ -81,16 +85,26 @@ public class UserPanelActivity extends AppCompatActivity {
         //Change header view programmatically
         View headerView = navigationView.inflateHeaderView(R.layout.navigation_drawer_header);
         TextView headerNameIcon = (TextView)headerView.findViewById(R.id.header_name_icon);
-        TextView headerName = (TextView)headerView.findViewById(R.id.header_name);
         TextView headerGroupIcon = (TextView)headerView.findViewById(R.id.header_group_icon);
-        TextView headerGroup = (TextView)headerView.findViewById(R.id.header_group);
         TextView headerCalculusPointsIcon = (TextView)headerView.findViewById(R.id.header_calculus_points_icon);
+        TextView headerName = (TextView)headerView.findViewById(R.id.header_name);
+        TextView headerGroup = (TextView)headerView.findViewById(R.id.header_group);
         TextView headerCalculusPoints = (TextView)headerView.findViewById(R.id.header_calculus_points);
 
         //Font Awesome
         headerNameIcon.setTypeface(FontManager.getTypeface(getApplicationContext(), FontManager.FONTAWESOME));
         headerGroupIcon.setTypeface(FontManager.getTypeface(getApplicationContext(), FontManager.FONTAWESOME));
         headerCalculusPointsIcon.setTypeface(FontManager.getTypeface(getApplicationContext(), FontManager.FONTAWESOME));
+
+        ProgressBar progressBar = (ProgressBar)headerView.findViewById(R.id.myProgressBar);
+        String method = "GETINFO";
+        String indexNo = new UserSessionManager(getApplicationContext(), UserPanelActivity.this).getIndexNo();
+        Networking networking = (Networking)new Networking(progressBar, getApplicationContext(), new Networking.AsyncResponse() {
+            @Override
+            public void processFinish(String output) {
+                Log.v("ERRORS", output);
+            }
+        }).execute(method, indexNo);
 
 
     }

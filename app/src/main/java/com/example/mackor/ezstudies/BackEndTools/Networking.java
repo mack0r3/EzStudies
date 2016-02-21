@@ -63,6 +63,7 @@ public class Networking extends AsyncTask<Object, Void, String> {
         String registerURL = "http://46.101.168.84/EzStudiesCRUD/register.php";
         String loginURL = "http://46.101.168.84/EzStudiesCRUD/login.php";
         String getResultsURL = "http://46.101.168.84/EzStudiesCRUD/get_results.php";
+        String getUserInfoURL = "http://46.101.168.84/EzStudiesCRUD/get_user_info.php";
         String method = (String) params[0];
 
         if (!isConnectedToInternet(context))
@@ -83,6 +84,8 @@ public class Networking extends AsyncTask<Object, Void, String> {
                 return x;
             case "GETRESULTS":
                 return makeHttpPOSTRequest(getResultsURL, null);
+            case "GETINFO":
+                return makeHttpPOSTRequest(getUserInfoURL, null);
             default:
                 return null;
         }

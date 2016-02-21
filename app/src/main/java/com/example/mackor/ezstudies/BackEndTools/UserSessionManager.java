@@ -30,6 +30,11 @@ public class UserSessionManager {
         editor = sharedPreferences.edit();
     }
 
+    public String getIndexNo()
+    {
+        return sharedPreferences.getString(KEY_INDEX, null);
+    }
+
     public void createUserLogginSession(String indexNo) {
         editor.putBoolean(IS_USR_LOGGED, true);
         editor.putString(KEY_INDEX, indexNo);

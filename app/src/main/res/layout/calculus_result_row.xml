@@ -21,7 +21,7 @@
                 android:id="@+id/indexNoIcon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
+                android:paddingRight="20dp"
                 android:text="@string/fa_graduation_cap"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="@color/colorText" />
@@ -31,7 +31,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-condensed"
-                android:padding="10dp"
                 android:text="Large Text"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="@color/colorText" />
@@ -41,13 +40,14 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingBottom="10dp">
 
             <TextView
                 android:id="@+id/pointsIcon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
+                android:paddingRight="20dp"
                 android:text="@string/fa_check"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="@color/colorText" />
@@ -57,7 +57,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-condensed"
-                android:padding="10dp"
                 android:layout_marginLeft="10dp"
                 android:text="Large Text"
                 android:textAppearance="?android:attr/textAppearanceLarge"
