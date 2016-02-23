@@ -1,0 +1,161 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/user_panel_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.mackor.ezstudies.Fragments.UserScoreFragment">
+
+    <RelativeLayout
+        android:id="@+id/userScoreFragmentContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:id="@+id/userNameRow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="80dp"
+            android:gravity="center">
+
+            <View
+                android:layout_width="50dp"
+                android:layout_height="1dp"
+                android:background="@color/colorText" />
+
+            <TextView
+                android:id="@+id/userNameTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-condensed"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:text="User Name"
+                android:textColor="@color/colorText"
+                android:textSize="20sp" />
+
+            <View
+                android:layout_width="50dp"
+                android:layout_height="1dp"
+                android:background="@color/colorText" />
+
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/userPublicResultRow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/userNameRow"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="25dp"
+            android:layout_marginTop="80dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/publicResultText"
+                android:textColor="@color/colorText"
+                android:textSize="20sp" />
+
+            <Switch
+                android:id="@+id/publicResultSwitch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/userActivityPointsRow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/userPublicResultRow"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:layout_marginTop="50dp">
+
+            <TextView
+                android:id="@+id/activityPointsText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:text="@string/userActivityPoinstText"
+                android:textColor="@color/colorText"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/userActivityPointsTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:text="X"
+                android:textColor="@color/colorText"
+                android:textSize="20sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/menageActivityPointsRow"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/userActivityPointsRow"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:layout_marginTop="50dp">
+
+            <TextView
+                android:id="@+id/addPointButtonIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="@string/fa_plus_square"
+                android:textColor="@color/colorText"
+                android:textSize="40sp" />
+
+            <TextView
+                android:id="@+id/subtractPointButtonIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:padding="10dp"
+                android:text="@string/fa_minus_square"
+                android:textColor="@color/colorText"
+                android:textSize="40sp" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/buttonsRow"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true">
+
+            <Button
+                android:id="@+id/saveActivityButton"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_add_point_style"
+                android:text="@string/saveActivityButtonText"
+                android:textColor="@color/colorText"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+    <ProgressBar
+        android:id="@+id/myProgressBar"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true" />
+
+</RelativeLayout>

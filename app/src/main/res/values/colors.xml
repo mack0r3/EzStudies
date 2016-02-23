@@ -25,6 +25,7 @@
     <!-- ViewPager colors -->
     <color name="viewPagerTextColor">#FFFFFF</color>
     <color name="viewPagerBackgroundColor">#101010</color>
+    <color name="viewPagerTabIndicatorColor">#27ae60</color>
 
     <!-- Group Fragments Colors -->
     <color name="groupFragmentColor">#000000</color>
@@ -34,6 +35,10 @@
 
     <!-- Calculus listView Colors -->
     <color name="highlightedRowColor">#27ae60</color>
+
+    <!-- Calculus User Result Colors -->
+    <color name="addPointButtonColor">#27ae60</color>
+    <color name="subtractPointButtonColor">#c0392b</color>
 
 
 

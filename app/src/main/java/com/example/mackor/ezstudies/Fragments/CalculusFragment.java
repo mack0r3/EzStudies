@@ -4,9 +4,7 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 
 import android.support.v4.app.Fragment;
-import android.support.v4.app.ListFragment;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,8 +25,8 @@ public class CalculusFragment extends Fragment {
     ViewPager viewPager;
     ViewPagerAdapter viewPagerAdapter;
 
-    String indexNo;
-    int points;
+//    String indexNo;
+//    int points;
 
 
     public CalculusFragment() {
@@ -43,37 +41,39 @@ public class CalculusFragment extends Fragment {
         View inflatedView = inflater.inflate(R.layout.fragment_calculus, container, false);
 
 
-        indexNo = getArguments().getString("indexNo");
-        points = getArguments().getInt("points");
+//        indexNo = getArguments().getString("indexNo");
+//        points = getArguments().getInt("points");
 
         // Inflate the layout for this fragment
 
         tabLayout = (TabLayout)inflatedView.findViewById(R.id.tabLayout);
         viewPager = (ViewPager)inflatedView.findViewById(R.id.viewPager);
 
-        List<ListFragment> fragmentsList = getFragmentsList();
+        List<Fragment> fragmentsList = getFragmentsList();
         List<String> tabTitles = getTabTitles();
 
-        viewPagerAdapter = new ViewPagerAdapter(getFragmentManager(), getFragmentsList(), getTabTitles());
+        viewPagerAdapter = new ViewPagerAdapter(getFragmentManager(), getFragmentsList(), getTabTitles());;
         viewPager.setAdapter(viewPagerAdapter);
+        viewPagerAdapter.notifyDataSetChanged();
+        viewPagerAdapter.notifyDataSetChanged();
         tabLayout.setupWithViewPager(viewPager);
 
         return inflatedView;
     }
 
-    private List<ListFragment> getFragmentsList()
+    private List<Fragment> getFragmentsList()
     {
-        List<ListFragment> fragmentsList = new ArrayList<ListFragment>();
-        fragmentsList.add(new DA1ListFragment().newIntance(indexNo, points));
-        fragmentsList.add(new DA2ListFragment());
+        List<Fragment> fragmentsList = new ArrayList<>();
+        fragmentsList.add(new UserScoreFragment());
+        fragmentsList.add(new GeneralScoreFragment());
 
         return fragmentsList;
     }
     private List<String> getTabTitles()
     {
         List<String> tabTitles = new ArrayList<String>();
-        tabTitles.add("DA1");
-        tabTitles.add("DA2");
+        tabTitles.add("My score");
+        tabTitles.add("General");
         return tabTitles;
     }
 

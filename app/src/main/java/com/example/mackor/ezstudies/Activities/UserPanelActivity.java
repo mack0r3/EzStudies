@@ -1,6 +1,5 @@
 package com.example.mackor.ezstudies.Activities;
 
-import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.support.design.widget.NavigationView;
@@ -19,7 +18,6 @@ import android.widget.TextView;
 import com.example.mackor.ezstudies.BackEndTools.Networking;
 import com.example.mackor.ezstudies.BackEndTools.UserSessionManager;
 import com.example.mackor.ezstudies.Fragments.CalculusFragment;
-import com.example.mackor.ezstudies.Fragments.DA1ListFragment;
 import com.example.mackor.ezstudies.Fragments.MainFragment;
 import com.example.mackor.ezstudies.FrontEndTools.FontManager;
 import com.example.mackor.ezstudies.R;
@@ -34,12 +32,11 @@ public class UserPanelActivity extends AppCompatActivity {
     ActionBarDrawerToggle actionBarDrawerToggle;
     FragmentTransaction fragmentTransaction;
     NavigationView navigationView;
+    View headerView;
 
     //Global indexNo and points in order to pass them to DA1ListFragment
     String indexNo;
     int points;
-
-    int lastClikedItem = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +47,8 @@ public class UserPanelActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);;
+        drawerLayout.setWillNotDraw(false);
 
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close);
         drawerLayout.setDrawerListener(actionBarDrawerToggle);
@@ -63,9 +61,10 @@ public class UserPanelActivity extends AppCompatActivity {
         navigationView.setItemTextColor(ColorStateList.valueOf(Color.WHITE));
         navigationView.setItemIconTintList(ColorStateList.valueOf(Color.WHITE));
 
-
         //Change header view programmatically
-        View headerView = navigationView.inflateHeaderView(R.layout.navigation_drawer_header);
+        headerView = navigationView.inflateHeaderView(R.layout.navigation_drawer_header);
+        headerView.setWillNotDraw(false);
+
         final TextView headerNameIcon = (TextView) headerView.findViewById(R.id.header_name_icon);
         final TextView headerGroupIcon = (TextView) headerView.findViewById(R.id.header_group_icon);
         final TextView headerCalculusPointsIcon = (TextView) headerView.findViewById(R.id.header_calculus_points_icon);
@@ -79,7 +78,7 @@ public class UserPanelActivity extends AppCompatActivity {
         headerCalculusPointsIcon.setTypeface(FontManager.getTypeface(getApplicationContext(), FontManager.FONTAWESOME));
 
         ProgressBar progressBar = (ProgressBar) headerView.findViewById(R.id.myProgressBar);
-        String method = "GETINFO";
+        String method = "GET_USER_INFO";
         indexNo = new UserSessionManager(getApplicationContext(), UserPanelActivity.this).getIndexNo();
         Networking networking = (Networking) new Networking(progressBar, getApplicationContext(), new Networking.AsyncResponse() {
             @Override
@@ -109,20 +108,14 @@ public class UserPanelActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.calculus_id:
-                        if (lastClikedItem != R.id.calculus_id) {
-                            CalculusFragment calculusFragment = new CalculusFragment();
-                            Bundle bundle = new Bundle();
-                            bundle.putString("indexNo", indexNo);
-                            bundle.putInt("points", points);
-                            calculusFragment.setArguments(bundle);
-                            fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                            fragmentTransaction.replace(R.id.main_container, calculusFragment);
-                            fragmentTransaction.commit();
-                            getSupportActionBar().setTitle("Calculus");
-                        }
+                        CalculusFragment calculusFragment = new CalculusFragment();
+                        fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                        fragmentTransaction.replace(R.id.main_container, calculusFragment);
+                        fragmentTransaction.addToBackStack(null);
+                        fragmentTransaction.commit();
+                        getSupportActionBar().setTitle("Calculus");
                         item.setChecked(true);
                         drawerLayout.closeDrawers();
-                        lastClikedItem = R.id.calculus_id;
                         break;
                     case R.id.logout_id:
                         UserSessionManager userSessionManager = new UserSessionManager(getApplicationContext(), UserPanelActivity.this);
@@ -135,9 +128,28 @@ public class UserPanelActivity extends AppCompatActivity {
         //navigationView.inflateMenu(R.menu.drawer_menu);
     }
 
+    public View getHeaderView()
+    {
+        return headerView;
+    }
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         actionBarDrawerToggle.syncState();
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        int count = getFragmentManager().getBackStackEntryCount();
+        Log.v("ERRORS", ""  + count);
+
+        if (count == 0) {
+            super.onBackPressed();
+            //additional code
+        } else {
+            getFragmentManager().popBackStack();
+        }
+
     }
 }

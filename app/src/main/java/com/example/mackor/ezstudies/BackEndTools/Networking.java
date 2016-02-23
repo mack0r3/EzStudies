@@ -39,13 +39,15 @@ public class Networking extends AsyncTask<Object, Void, String> {
     public interface AsyncResponse {
         void processFinish(String output);
     }
+
     public AsyncResponse delegate = null;
 
-    public Networking(ProgressBar progressbar, Context context, AsyncResponse delegate){
+    public Networking(ProgressBar progressbar, Context context, AsyncResponse delegate) {
         this.progressBar = progressbar;
         this.delegate = delegate;
         this.context = context;
     }
+
     @Override
     protected void onPostExecute(String result) {
         progressBar.setVisibility(View.GONE);
@@ -64,10 +66,10 @@ public class Networking extends AsyncTask<Object, Void, String> {
         String loginURL = "http://46.101.168.84/EzStudiesCRUD/login.php";
         String getResultsURL = "http://46.101.168.84/EzStudiesCRUD/get_results.php";
         String getUserInfoURL = "http://46.101.168.84/EzStudiesCRUD/get_user_info.php";
+        String updateUserPointsURL = "http://46.101.168.84/EzStudiesCRUD/update_user_points.php";
         String method = (String) params[0];
 
-        if (!isConnectedToInternet(context))
-        {
+        if (!isConnectedToInternet(context)) {
             return "{\"success\":\"false\",\"message\":\"Connection problem\"}";
         }
 
@@ -84,14 +86,23 @@ public class Networking extends AsyncTask<Object, Void, String> {
                 return x;
             case "GETRESULTS":
                 return makeHttpPOSTRequest(getResultsURL, null);
-            case "GETINFO":
-                String URLDataEncoded = "";
+            case "GET_USER_INFO":
+                String get_user_info_data = "";
                 try {
-                    URLDataEncoded = URLEncoder.encode("indexNo", "UTF-8") + "=" + URLEncoder.encode(params[1].toString(), "UTF-8");
+                    get_user_info_data = URLEncoder.encode("indexNo", "UTF-8") + "=" + URLEncoder.encode(params[1].toString(), "UTF-8");
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
                 }
-                return makeHttpPOSTRequest(getUserInfoURL, URLDataEncoded);
+                return makeHttpPOSTRequest(getUserInfoURL, get_user_info_data);
+            case "UPDATE_POINTS":
+                String update_points_data = "";
+                try {
+                    update_points_data = URLEncoder.encode("indexNo", "UTF-8") + "=" + URLEncoder.encode(params[1].toString(), "UTF-8") + "&";
+                    update_points_data += URLEncoder.encode("points", "UTF-8") + "=" + URLEncoder.encode(params[2].toString(), "UTF-8");
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+                return makeHttpPOSTRequest(updateUserPointsURL, update_points_data);
             default:
                 return null;
         }
@@ -103,8 +114,7 @@ public class Networking extends AsyncTask<Object, Void, String> {
             URL url = new URL(registerURL);
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
             httpURLConnection.setRequestMethod("POST");
-            if(URLDataEncoded != null)
-            {
+            if (URLDataEncoded != null) {
                 httpURLConnection.setDoOutput(true);
                 OutputStream outputStream = httpURLConnection.getOutputStream();
                 BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));

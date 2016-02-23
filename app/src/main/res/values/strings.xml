@@ -14,7 +14,8 @@
     <string name="fa_check">&#xf046;</string>
     <string name="fa_calculator">&#xf1ec;</string>
     <string name="fa_logout">&#xf08b;</string>
-
+    <string name="fa_plus_square">&#xf196;</string>
+    <string name="fa_minus_square">&#xf147;</string>
     <!-- Spinner -->
     <string-array name="group_array">
         <item>DA1</item>
@@ -25,8 +26,15 @@
     <string name="drawer_open">drawer open</string>
     <string name="drawer_close">drawer close</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
+    <!-- UserScore strings -->
+    <string name="userActivityPoinstText">Activity points</string>
+    <string name="publicResultText">Public result</string>
+    <string name="saveActivityButtonText">Save</string>
+
+<!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
 
 
 </resources>
