@@ -48,7 +48,8 @@
                 android:id="@+id/pointsIcon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingRight="20dp"
+                android:paddingRight="15dp"
+                android:layout_marginLeft="5dp"
                 android:text="@string/fa_check"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="@color/colorText" />

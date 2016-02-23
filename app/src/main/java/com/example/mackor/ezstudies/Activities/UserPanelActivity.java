@@ -35,12 +35,17 @@ public class UserPanelActivity extends AppCompatActivity {
     FragmentTransaction fragmentTransaction;
     NavigationView navigationView;
 
+    //Global indexNo and points in order to pass them to DA1ListFragment
+    String indexNo;
+    int points;
+
     int lastClikedItem = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_panel);
+
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -54,19 +59,64 @@ public class UserPanelActivity extends AppCompatActivity {
         fragmentTransaction.add(R.id.main_container, new MainFragment());
         fragmentTransaction.commit();
         getSupportActionBar().setTitle("MainContainer");
-        navigationView = (NavigationView)findViewById(R.id.navigation_view);
+        navigationView = (NavigationView) findViewById(R.id.navigation_view);
         navigationView.setItemTextColor(ColorStateList.valueOf(Color.WHITE));
         navigationView.setItemIconTintList(ColorStateList.valueOf(Color.WHITE));
+
+
+        //Change header view programmatically
+        View headerView = navigationView.inflateHeaderView(R.layout.navigation_drawer_header);
+        final TextView headerNameIcon = (TextView) headerView.findViewById(R.id.header_name_icon);
+        final TextView headerGroupIcon = (TextView) headerView.findViewById(R.id.header_group_icon);
+        final TextView headerCalculusPointsIcon = (TextView) headerView.findViewById(R.id.header_calculus_points_icon);
+        final TextView headerName = (TextView) headerView.findViewById(R.id.header_name);
+        final TextView headerGroup = (TextView) headerView.findViewById(R.id.header_group);
+        final TextView headerCalculusPoints = (TextView) headerView.findViewById(R.id.header_calculus_points);
+
+        //Font Awesome
+        headerNameIcon.setTypeface(FontManager.getTypeface(getApplicationContext(), FontManager.FONTAWESOME));
+        headerGroupIcon.setTypeface(FontManager.getTypeface(getApplicationContext(), FontManager.FONTAWESOME));
+        headerCalculusPointsIcon.setTypeface(FontManager.getTypeface(getApplicationContext(), FontManager.FONTAWESOME));
+
+        ProgressBar progressBar = (ProgressBar) headerView.findViewById(R.id.myProgressBar);
+        String method = "GETINFO";
+        indexNo = new UserSessionManager(getApplicationContext(), UserPanelActivity.this).getIndexNo();
+        Networking networking = (Networking) new Networking(progressBar, getApplicationContext(), new Networking.AsyncResponse() {
+            @Override
+            public void processFinish(String output) {
+                try {
+                    View view = findViewById(R.id.loggedUserInfo);
+                    view.setVisibility(View.VISIBLE);
+
+                    JSONObject json = new JSONObject(output);
+                    String firstName = json.getString("fname").substring(0, 1).toUpperCase() + json.getString("fname").substring(1);
+                    String lastName = json.getString("lname").substring(0, 1).toUpperCase() + json.getString("lname").substring(1);
+                    String group = json.getString("group");
+                    points = Integer.parseInt(json.getString("points"));
+                    headerName.setText(firstName + " " + lastName);
+                    headerGroup.setText(group);
+                    headerCalculusPoints.setText(String.valueOf(points));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }).execute(method, indexNo);
+
+
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem item) {
-                switch(item.getItemId())
-                {
+                switch (item.getItemId()) {
                     case R.id.calculus_id:
-                        if(lastClikedItem != R.id.calculus_id)
-                        {
+                        if (lastClikedItem != R.id.calculus_id) {
+                            CalculusFragment calculusFragment = new CalculusFragment();
+                            Bundle bundle = new Bundle();
+                            bundle.putString("indexNo", indexNo);
+                            bundle.putInt("points", points);
+                            calculusFragment.setArguments(bundle);
                             fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                            fragmentTransaction.replace(R.id.main_container, new CalculusFragment());
+                            fragmentTransaction.replace(R.id.main_container, calculusFragment);
                             fragmentTransaction.commit();
                             getSupportActionBar().setTitle("Calculus");
                         }
@@ -83,44 +133,6 @@ public class UserPanelActivity extends AppCompatActivity {
         });
         //navigationView.getMenu();
         //navigationView.inflateMenu(R.menu.drawer_menu);
-
-
-        //Change header view programmatically
-        View headerView = navigationView.inflateHeaderView(R.layout.navigation_drawer_header);
-        final TextView headerNameIcon = (TextView)headerView.findViewById(R.id.header_name_icon);
-        final TextView headerGroupIcon = (TextView)headerView.findViewById(R.id.header_group_icon);
-        final TextView headerCalculusPointsIcon = (TextView)headerView.findViewById(R.id.header_calculus_points_icon);
-        final TextView headerName = (TextView)headerView.findViewById(R.id.header_name);
-        final TextView headerGroup = (TextView)headerView.findViewById(R.id.header_group);
-        final TextView headerCalculusPoints = (TextView)headerView.findViewById(R.id.header_calculus_points);
-
-        //Font Awesome
-        headerNameIcon.setTypeface(FontManager.getTypeface(getApplicationContext(), FontManager.FONTAWESOME));
-        headerGroupIcon.setTypeface(FontManager.getTypeface(getApplicationContext(), FontManager.FONTAWESOME));
-        headerCalculusPointsIcon.setTypeface(FontManager.getTypeface(getApplicationContext(), FontManager.FONTAWESOME));
-
-        ProgressBar progressBar = (ProgressBar)headerView.findViewById(R.id.myProgressBar);
-        String method = "GETINFO";
-        String indexNo = new UserSessionManager(getApplicationContext(), UserPanelActivity.this).getIndexNo();
-        Networking networking = (Networking)new Networking(progressBar, getApplicationContext(), new Networking.AsyncResponse() {
-            @Override
-            public void processFinish(String output) {
-                try {
-                    View view = findViewById(R.id.loggedUserInfo);
-                    view.setVisibility(View.VISIBLE);
-
-                    JSONObject json = new JSONObject(output);
-                    String firstName = json.getString("fname").substring(0, 1).toUpperCase() + json.getString("fname").substring(1);
-                    String lastName = json.getString("lname").substring(0, 1).toUpperCase() + json.getString("lname").substring(1);
-                    headerName.setText(firstName + " " + lastName);
-                    headerGroup.setText(json.getString("group"));
-                    headerCalculusPoints.setText(json.getString("points"));
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-            }
-        }).execute(method, indexNo);
     }
 
     @Override

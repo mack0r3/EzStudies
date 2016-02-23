@@ -6,11 +6,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.mackor.ezstudies.Activities.UserPanelActivity;
 import com.example.mackor.ezstudies.BackEndTools.CustomJSONAdapter;
 import com.example.mackor.ezstudies.BackEndTools.Networking;
+import com.example.mackor.ezstudies.FrontEndTools.Utility;
 import com.example.mackor.ezstudies.R;
 
 import org.json.JSONArray;
@@ -23,10 +27,31 @@ import org.json.JSONObject;
 public class DA1ListFragment extends ListFragment {
 
     ProgressBar progressBar;
+    View inflatedView;
+
+    String indexNo;
+    int points;
+
+
+    public DA1ListFragment newIntance(String indexNo, int points) {
+        DA1ListFragment fragment = new DA1ListFragment();
+        Bundle args = new Bundle();
+        args.putString("indexNo", indexNo);
+        args.putInt("points", points);
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View inflatedView = inflater.inflate(R.layout.list_fragment_da1, container, false);
+        inflatedView = inflater.inflate(R.layout.list_fragment_da1, container, false);
+
+        indexNo = getArguments().getString("indexNo");
+        points = getArguments().getInt("points");
+
+        TextView myIndexNo = (TextView)inflatedView.findViewById(R.id.indexNoTextView);
+        myIndexNo.setText(indexNo);
+
         progressBar = (ProgressBar)inflatedView.findViewById(R.id.myProgressBar);
         return inflatedView;
     }
@@ -41,7 +66,10 @@ public class DA1ListFragment extends ListFragment {
                 try {
                     JSONArray jsonArr = SortResults(new JSONArray(output), "DA1");
                     CustomJSONAdapter myAdapter = new CustomJSONAdapter(jsonArr, getActivity());
+
+                    ListView lv = (ListView)inflatedView.findViewById(android.R.id.list);
                     setListAdapter(myAdapter);
+                    Utility.setListViewHeightBasedOnChildren(lv);
                 } catch (JSONException e) {
                     Log.v("ERROR", e.getMessage());
                     e.printStackTrace();

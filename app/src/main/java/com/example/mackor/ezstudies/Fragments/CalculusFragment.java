@@ -27,6 +27,9 @@ public class CalculusFragment extends Fragment {
     ViewPager viewPager;
     ViewPagerAdapter viewPagerAdapter;
 
+    String indexNo;
+    int points;
+
 
     public CalculusFragment() {
         // Required empty public constructor
@@ -36,7 +39,12 @@ public class CalculusFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         View inflatedView = inflater.inflate(R.layout.fragment_calculus, container, false);
+
+
+        indexNo = getArguments().getString("indexNo");
+        points = getArguments().getInt("points");
 
         // Inflate the layout for this fragment
 
@@ -56,7 +64,7 @@ public class CalculusFragment extends Fragment {
     private List<ListFragment> getFragmentsList()
     {
         List<ListFragment> fragmentsList = new ArrayList<ListFragment>();
-        fragmentsList.add(new DA1ListFragment());
+        fragmentsList.add(new DA1ListFragment().newIntance(indexNo, points));
         fragmentsList.add(new DA2ListFragment());
 
         return fragmentsList;
