@@ -64,55 +64,26 @@ public class CustomJSONAdapter extends BaseAdapter {
         if(convertView == null)
         {
             LayoutInflater layoutInflater = LayoutInflater.from(context);
-            convertView = layoutInflater.inflate(R.layout.calculus_result_row, null);
+            convertView = layoutInflater.inflate(R.layout.custom_user_test_result, null);
         }
 
-        TextView indexNoTextView = (TextView)convertView.findViewById(R.id.indexNoTextView);
-        TextView pointsTextView = (TextView)convertView.findViewById(R.id.pointsTextView);
-
-        TextView indexNumber = (TextView)convertView.findViewById(R.id.indexNoIcon);
-        TextView pointsTV = (TextView)convertView.findViewById(R.id.pointsIcon);
-
-        //Set textColor to white again.
-        indexNoTextView.setTextColor(ContextCompat.getColor(context, R.color.colorText));
-        pointsTextView.setTextColor(ContextCompat.getColor(context, R.color.colorText));
-        indexNumber.setTextColor(ContextCompat.getColor(context, R.color.colorText));
-        pointsTV.setTextColor(ContextCompat.getColor(context, R.color.colorText));
-
-        indexNumber.setTypeface(FontManager.getTypeface(context, FontManager.FONTAWESOME));
-        pointsTV.setTypeface(FontManager.getTypeface(context, FontManager.FONTAWESOME));
+        TextView testTypeTV = (TextView)convertView.findViewById(R.id.test_type);
+        TextView testScoreTV = (TextView)convertView.findViewById(R.id.test_score);
 
         JSONObject json = (JSONObject) getItem(position);
 
-        String indexNo = null, group = null;
-        int points = 0;
-
+        String testType = "";
+        int testScore = 0;
         try {
-            indexNo = json.getString("indexNo");
-            points = json.getInt("points");
+            testType = json.getString("testType");
+            testScore = json.getInt("result");
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        //Retrieve sharedPreferences data
-        int PRIVATE_MODE = 0;
-        String PREF_NAME = "LoginPreferences";
-        SharedPreferences sharedPreferences = context.getSharedPreferences(PREF_NAME, PRIVATE_MODE);
-        String prefIndexNo = sharedPreferences.getString("index", null);
-
-        indexNoTextView.setText(indexNo);
-        pointsTextView.setText(String.valueOf(points));
-
-        if(prefIndexNo != null && prefIndexNo.equals(indexNoTextView.getText()))
-        {
-            indexNoTextView.setTextColor(ContextCompat.getColor(context, R.color.highlightedRowColor));
-            pointsTextView.setTextColor(ContextCompat.getColor(context, R.color.highlightedRowColor));
-            indexNumber.setTextColor(ContextCompat.getColor(context, R.color.highlightedRowColor));
-            pointsTV.setTextColor(ContextCompat.getColor(context, R.color.highlightedRowColor));
-            Log.v("ERRORS", prefIndexNo +  "#" + indexNoTextView.getText());
-        }
-
+        testTypeTV.setText(testType);
+        testScoreTV.setText(String.valueOf(testScore));
 
         return convertView;
     }

@@ -40,6 +40,9 @@
     <color name="addPointButtonColor">#27ae60</color>
     <color name="subtractPointButtonColor">#c0392b</color>
 
+    <!-- Calculus User Test Colors -->
+    <color name="addTestButtonColor">#006699</color>
+
 
 
 </resources>

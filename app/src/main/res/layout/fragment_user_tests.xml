@@ -37,13 +37,31 @@
     </LinearLayout>
 
     <ListView
+        android:id="@+id/testsListView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/buttonsRow"
+        android:layout_above="@+id/addTestButton"
         android:layout_below="@id/userNameRow"
-        android:layout_marginLeft="50dp"
-        android:layout_marginRight="50dp"
-        android:layout_marginTop="50dp"></ListView>
+        android:layout_marginLeft="80dp"
+        android:layout_marginRight="80dp"
+        android:layout_marginTop="50dp"
+        android:divider="#006699"
+        android:dividerHeight="1dp"></ListView>
+
+    <Button
+        android:id="@+id/addTestButton"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/buttonsRow"
+        android:layout_marginLeft="80dp"
+        android:layout_marginRight="80dp"
+        android:layout_marginBottom="50dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/button_add_test_style"
+        android:text="Add test"
+        android:fontFamily="sans-serif-condensed"
+        android:textColor="@color/colorText"
+        android:textSize="15sp" />
 
     <LinearLayout
         android:id="@+id/buttonsRow"

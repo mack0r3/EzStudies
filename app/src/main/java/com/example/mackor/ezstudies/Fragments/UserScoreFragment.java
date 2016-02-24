@@ -92,6 +92,8 @@ public class UserScoreFragment extends Fragment {
                     String lastName = json.getString("lname").substring(0, 1).toUpperCase() + json.getString("lname").substring(1);
                     currentPoints = Integer.parseInt(json.getString("points"));
 
+
+
                     userNameTextView.setText(firstName + " " + lastName);
                     userActivityPointsTextView.setText(String.valueOf(currentPoints));
 
