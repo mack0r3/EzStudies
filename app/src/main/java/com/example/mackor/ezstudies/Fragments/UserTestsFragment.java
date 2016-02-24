@@ -3,6 +3,8 @@ package com.example.mackor.ezstudies.Fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +13,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
+import com.example.mackor.ezstudies.AddTestFragment;
 import com.example.mackor.ezstudies.BackEndTools.CustomJSONAdapter;
 import com.example.mackor.ezstudies.BackEndTools.Networking;
 import com.example.mackor.ezstudies.BackEndTools.UserSessionManager;
@@ -47,7 +50,6 @@ public class UserTestsFragment extends Fragment {
             public void processFinish(String output) {
                 try {
                     JSONArray jsonArr = new JSONArray(output);
-                    Log.v("ERRORS", jsonArr.toString());
                     CustomJSONAdapter myAdapter = new CustomJSONAdapter(jsonArr, getContext());
                     ListView listView = (ListView)inflatedView.findViewById(R.id.testsListView);
                     listView.setAdapter(myAdapter);
@@ -56,7 +58,24 @@ public class UserTestsFragment extends Fragment {
                 }
             }
         }).execute(method, indexNo);
-        
+
+        Button addTestButton = (Button)inflatedView.findViewById(R.id.addTestButton);
+        addTestButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AddTestFragment addTestFragment = new AddTestFragment();
+                FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.main_container, addTestFragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+
+                //Nie ogarniam kurwa ale ta linijka pomogla w problemie, gdy wracalem z fragmentu to napotkiwałem blank activity
+                //Jakby po zmienieniu activity zrobilem refresh starego fregmentu i on tam został. Dizeła więc chuj xd
+                ViewPager vp = (ViewPager) getActivity().findViewById(R.id.viewPager);
+                vp.getAdapter().notifyDataSetChanged();
+
+            }
+        });
 
 
         return inflatedView;

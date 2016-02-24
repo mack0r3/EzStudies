@@ -54,7 +54,7 @@ public class UserPanelActivity extends AppCompatActivity {
         drawerLayout.setDrawerListener(actionBarDrawerToggle);
 
         fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.add(R.id.main_container, new MainFragment());
+        fragmentTransaction.replace(R.id.main_container, new MainFragment());
         fragmentTransaction.commit();
         getSupportActionBar().setTitle("MainContainer");
         navigationView = (NavigationView) findViewById(R.id.navigation_view);

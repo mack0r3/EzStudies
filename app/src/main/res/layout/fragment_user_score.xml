@@ -99,6 +99,9 @@
                 android:textSize="20sp" />
         </RelativeLayout>
 
+
+
+
         <RelativeLayout
             android:id="@+id/menageActivityPointsRow"
             android:layout_width="fill_parent"
@@ -114,7 +117,7 @@
                 android:layout_height="wrap_content"
                 android:padding="10dp"
                 android:text="@string/fa_plus_square"
-                android:textColor="@color/colorText"
+                android:textColor="@color/menageButtonsColor"
                 android:textSize="40sp" />
 
             <TextView
@@ -126,7 +129,7 @@
                 android:layout_alignParentTop="true"
                 android:padding="10dp"
                 android:text="@string/fa_minus_square"
-                android:textColor="@color/colorText"
+                android:textColor="@color/menageButtonsColor"
                 android:textSize="40sp" />
 
         </RelativeLayout>
