@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/hands_up"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.mackor.ezstudies.Activities.AddPointsActivity">
+
+
+    <LinearLayout
+        android:id="@+id/buttonRow"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+
+        <Button
+            android:id="@+id/addActivityPointsButton"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_add_point_style"
+            android:text="@string/confrimPoints"
+            android:textColor="@color/colorText"
+            android:textSize="15sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/buttonRow"
+        android:layout_marginBottom="50dp"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/addPointsMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-condensed"
+            android:text="@string/addPointsMessage"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/colorText" />
+
+        <EditText
+            android:id="@+id/pointsInput"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:fontFamily="sans-serif-condensed"
+            android:inputType="numberSigned"
+            android:textSize="25dp"
+            android:textAlignment="center"
+            android:textColor="@color/colorText" />
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/myProgressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="invisible"/>
+
+</RelativeLayout>

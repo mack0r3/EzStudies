@@ -8,7 +8,8 @@
         android:id="@+id/loggedUserInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="50dp"
         android:orientation="vertical"
         android:visibility="invisible">
 
@@ -23,10 +24,11 @@
 
             <TextView
                 android:id="@+id/header_name_icon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:paddingRight="10dp"
-                android:text="@string/fa_user"
+                android:text="@string/fa_graduation_cap"
+                android:textAlignment="center"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="@color/colorText"
                 android:textSize="20sp" />
@@ -51,10 +53,11 @@
 
             <TextView
                 android:id="@+id/header_group_icon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:paddingRight="10dp"
                 android:text="@string/fa_group"
+                android:textAlignment="center"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="@color/colorText"
                 android:textSize="15sp" />
@@ -89,10 +92,11 @@
 
             <TextView
                 android:id="@+id/header_calculus_points_icon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:paddingRight="10dp"
                 android:text="@string/fa_calculator"
+                android:textAlignment="center"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="@color/colorText"
                 android:textSize="17sp" />

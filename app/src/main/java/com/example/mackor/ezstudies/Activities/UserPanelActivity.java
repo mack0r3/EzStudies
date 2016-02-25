@@ -34,6 +34,8 @@ public class UserPanelActivity extends AppCompatActivity {
     NavigationView navigationView;
     View headerView;
 
+    int lastItemClicked;
+
     //Global indexNo and points in order to pass them to DA1ListFragment
     String indexNo;
     int points;
@@ -42,7 +44,6 @@ public class UserPanelActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_panel);
-
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -88,11 +89,9 @@ public class UserPanelActivity extends AppCompatActivity {
                     view.setVisibility(View.VISIBLE);
 
                     JSONObject json = new JSONObject(output);
-                    String firstName = json.getString("fname").substring(0, 1).toUpperCase() + json.getString("fname").substring(1);
-                    String lastName = json.getString("lname").substring(0, 1).toUpperCase() + json.getString("lname").substring(1);
                     String group = json.getString("group");
                     points = Integer.parseInt(json.getString("points"));
-                    headerName.setText(firstName + " " + lastName);
+                    headerName.setText(indexNo);
                     headerGroup.setText(group);
                     headerCalculusPoints.setText(String.valueOf(points));
                 } catch (JSONException e) {
@@ -111,11 +110,12 @@ public class UserPanelActivity extends AppCompatActivity {
                         CalculusFragment calculusFragment = new CalculusFragment();
                         fragmentTransaction = getSupportFragmentManager().beginTransaction();
                         fragmentTransaction.replace(R.id.main_container, calculusFragment);
-                        fragmentTransaction.addToBackStack(null);
+                        if(lastItemClicked != item.getItemId())fragmentTransaction.addToBackStack(null);
                         fragmentTransaction.commit();
                         getSupportActionBar().setTitle("Calculus");
                         item.setChecked(true);
                         drawerLayout.closeDrawers();
+                        lastItemClicked = item.getItemId();
                         break;
                     case R.id.logout_id:
                         UserSessionManager userSessionManager = new UserSessionManager(getApplicationContext(), UserPanelActivity.this);
@@ -124,14 +124,8 @@ public class UserPanelActivity extends AppCompatActivity {
                 return false;
             }
         });
-        //navigationView.getMenu();
-        //navigationView.inflateMenu(R.menu.drawer_menu);
     }
 
-    public View getHeaderView()
-    {
-        return headerView;
-    }
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
@@ -141,15 +135,19 @@ public class UserPanelActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
 
-        int count = getFragmentManager().getBackStackEntryCount();
-        Log.v("ERRORS", ""  + count);
-
+        int count = getSupportFragmentManager().getBackStackEntryCount();
         if (count == 0) {
             super.onBackPressed();
             //additional code
         } else {
-            getFragmentManager().popBackStack();
+            if(count == 1) lastItemClicked = 0;
+            getSupportFragmentManager().popBackStack();
         }
 
+    }
+
+    public View getHeaderView()
+    {
+        return headerView;
     }
 }

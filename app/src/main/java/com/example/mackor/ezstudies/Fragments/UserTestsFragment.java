@@ -1,9 +1,10 @@
 package com.example.mackor.ezstudies.Fragments;
 
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,8 +13,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
-import com.example.mackor.ezstudies.AddTestFragment;
+import com.example.mackor.ezstudies.Activities.AddTestActivity;
+import com.example.mackor.ezstudies.Activities.UserPanelActivity;
 import com.example.mackor.ezstudies.BackEndTools.CustomJSONAdapter;
 import com.example.mackor.ezstudies.BackEndTools.Networking;
 import com.example.mackor.ezstudies.BackEndTools.UserSessionManager;
@@ -30,6 +33,8 @@ public class UserTestsFragment extends Fragment {
 
     View inflatedView;
     ProgressBar myProgressBar;
+
+    int REFRESH_VIEWPAGER_REQUEST = 1;
 
     public UserTestsFragment() {
         // Required empty public constructor
@@ -63,22 +68,33 @@ public class UserTestsFragment extends Fragment {
         addTestButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AddTestFragment addTestFragment = new AddTestFragment();
-                FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.main_container, addTestFragment);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
-
-                //Nie ogarniam kurwa ale ta linijka pomogla w problemie, gdy wracalem z fragmentu to napotkiwałem blank activity
-                //Jakby po zmienieniu activity zrobilem refresh starego fregmentu i on tam został. Dizeła więc chuj xd
-                ViewPager vp = (ViewPager) getActivity().findViewById(R.id.viewPager);
-                vp.getAdapter().notifyDataSetChanged();
+//
+                Intent intent = new Intent(getContext(), AddTestActivity.class);
+                startActivityForResult(intent, REFRESH_VIEWPAGER_REQUEST);
+                getActivity().overridePendingTransition(R.anim.slide_up, R.anim.fade_out);
 
             }
         });
-
-
         return inflatedView;
+    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REFRESH_VIEWPAGER_REQUEST)
+        {
+            if(resultCode == Activity.RESULT_OK){
+                //Refresh ViewPager
+                ViewPager vp = (ViewPager) getActivity().findViewById(R.id.viewPager);
+                vp.getAdapter().notifyDataSetChanged();
+
+                //TODO Update headerView with new value of test points
+                View navHeader = ((UserPanelActivity)getActivity()).getHeaderView();
+                TextView tv = (TextView)(navHeader.findViewById(R.id.header_calculus_points));
+                String formerPoints = tv.getText().toString();
+                String newPoints = String.valueOf(Integer.parseInt(formerPoints) + Integer.parseInt(data.getStringExtra("result")));
+                Log.v("ERRORS", newPoints);
+                tv.setText(newPoints);
+            }
+        }
     }
 
 }

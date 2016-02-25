@@ -4,6 +4,7 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="colorBlack">#000000</color>
+    <color name="colorBlackCool">#101010</color>
     <color name="colorText">#FFFFFF</color>
     <color name="inputFieldColor">#2c3e50</color>
     <color name="inputLineSeparator">#2C3539</color>
@@ -28,7 +29,7 @@
     <color name="viewPagerTabIndicatorColor">#27ae60</color>
 
     <!-- Group Fragments Colors -->
-    <color name="groupFragmentColor">#000000</color>
+    <color name="groupFragmentsColor">#101010</color>
 
     <!-- MainFragment Colors -->
     <color name="mainFragmentBackground">#000000</color>
@@ -37,7 +38,7 @@
     <color name="highlightedRowColor">#27ae60</color>
 
     <!-- Calculus User Result Colors -->
-    <color name="addPointButtonColor">#27ae60</color>
+    <color name="addPointButtonColor">#006699</color>
     <color name="subtractPointButtonColor">#c0392b</color>
     <color name="menageButtonsColor">#006699</color>
     <color name="rowsDivider">#006699</color>

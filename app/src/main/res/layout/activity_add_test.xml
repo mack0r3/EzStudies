@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/booksheap_2"
+    tools:context="com.example.mackor.ezstudies.Activities.AddTestActivity">
+
+
+    <LinearLayout
+        android:id="@+id/testPointsRow"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/buttonRow"
+        android:layout_marginBottom="100dp"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/testPointsIcon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:text="@string/fa_check_square"
+            android:textAlignment="center"
+            android:layout_marginRight="20dp"
+            android:textColor="@color/colorText"
+            android:textSize="25sp" />
+
+        <EditText
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:background="#202020"
+            android:maxLength="3"
+            android:id="@+id/testPointsET"
+            android:hint="Result"
+            android:textAlignment="center"
+            android:textColor="@color/colorText" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/testTypeRow"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_above="@id/testPointsRow"
+        android:layout_marginBottom="20dp"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/testTypeIcon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:text="@string/fa_book"
+            android:textAlignment="center"
+            android:textColor="@color/colorText"
+            android:layout_marginRight="20dp"
+            android:textSize="25sp" />
+
+        <EditText
+            android:layout_width="100dp"
+            android:id="@+id/testTypeET"
+            android:layout_height="wrap_content"
+            android:maxHeight="50dp"
+            android:hint="Test type"
+            android:maxWidth="100dp"
+            android:background="#202020"
+            android:maxLength="10"
+            android:textAlignment="center"
+            android:textColor="@color/colorText" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/buttonRow"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+
+        <Button
+            android:id="@+id/addTestButton"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_add_point_style"
+            android:text="@string/confrimPoints"
+            android:textColor="@color/colorText"
+            android:textSize="15sp" />
+
+    </LinearLayout>
+    <ProgressBar
+        android:id="@+id/myProgressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="80dp"
+        android:visibility="invisible"/>
+</RelativeLayout>

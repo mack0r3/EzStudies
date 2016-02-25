@@ -1,7 +1,9 @@
 package com.example.mackor.ezstudies.Fragments;
 
 
+import android.app.Activity;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -18,6 +20,7 @@ import android.widget.ProgressBar;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import com.example.mackor.ezstudies.Activities.AddPointsActivity;
 import com.example.mackor.ezstudies.Activities.UserPanelActivity;
 import com.example.mackor.ezstudies.BackEndTools.Networking;
 import com.example.mackor.ezstudies.BackEndTools.UserSessionManager;
@@ -36,12 +39,12 @@ import java.sql.BatchUpdateException;
 public class UserScoreFragment extends Fragment {
 
     View inflatedView;
+    int REFRESH_VIEWPAGER_REQUEST = 1;
 
     int pointsCounter = 0;
     int currentPoints;
 
     String indexNo;
-
 
 
     public UserScoreFragment() {
@@ -59,18 +62,10 @@ public class UserScoreFragment extends Fragment {
 
         inflatedView = inflater.inflate(R.layout.fragment_user_score, container, false);
 
-        final TextView userNameTextView = (TextView) inflatedView.findViewById(R.id.userNameTextView);
         final TextView userActivityPointsTextView = (TextView) inflatedView.findViewById(R.id.userActivityPointsTextView);
         final ProgressBar progressBar = (ProgressBar) inflatedView.findViewById(R.id.myProgressBar);
-        Switch publicResultSwitch = (Switch)inflatedView.findViewById(R.id.publicResultSwitch);
+        Switch publicResultSwitch = (Switch) inflatedView.findViewById(R.id.publicResultSwitch);
 
-        Button saveActivityPointsButton = (Button)inflatedView.findViewById(R.id.saveActivityButton);
-
-        //FontAwesome
-        TextView addPointButtonIcon = (TextView)inflatedView.findViewById(R.id.addPointButtonIcon);
-        TextView subtractPointButtonIcon = (TextView)inflatedView.findViewById(R.id.subtractPointButtonIcon);
-        addPointButtonIcon.setTypeface(FontManager.getTypeface(getContext(), FontManager.FONTAWESOME));
-        subtractPointButtonIcon.setTypeface(FontManager.getTypeface(getContext(), FontManager.FONTAWESOME));
 
         publicResultSwitch.setTextOff("OFF");
         publicResultSwitch.setTextOn("ON");
@@ -88,13 +83,7 @@ public class UserScoreFragment extends Fragment {
 
                     inflatedView.findViewById(R.id.userScoreFragmentContainer).setVisibility(View.VISIBLE);
 
-                    String firstName = json.getString("fname").substring(0, 1).toUpperCase() + json.getString("fname").substring(1);
-                    String lastName = json.getString("lname").substring(0, 1).toUpperCase() + json.getString("lname").substring(1);
                     currentPoints = Integer.parseInt(json.getString("points"));
-
-
-
-                    userNameTextView.setText(firstName + " " + lastName);
                     userActivityPointsTextView.setText(String.valueOf(currentPoints));
 
                 } catch (JSONException e) {
@@ -103,68 +92,36 @@ public class UserScoreFragment extends Fragment {
             }
         }).execute(method, indexNo);
 
-
-        addPointButtonIcon.setOnClickListener(new View.OnClickListener() {
+        Button addPointsButton = (Button) inflatedView.findViewById(R.id.addActivityPointsButton);
+        addPointsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                pointsCounter++;
-                if(pointsCounter > 0)  userActivityPointsTextView.setText(currentPoints + " + " + pointsCounter);
-                else if(pointsCounter == 0) userActivityPointsTextView.setText(String.valueOf(currentPoints));
-                else userActivityPointsTextView.setText(String.valueOf(currentPoints + " - " + pointsCounter * (-1)));
-            }
-        });
-        subtractPointButtonIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                pointsCounter--;
-                if(pointsCounter > 0)  userActivityPointsTextView.setText(currentPoints + " + " + pointsCounter);
-                else if(pointsCounter == 0) userActivityPointsTextView.setText(String.valueOf(currentPoints));
-                else userActivityPointsTextView.setText(String.valueOf(currentPoints + " - " + pointsCounter * (-1)));
-            }
-        });
 
-        final String _method = "UPDATE_POINTS";
-
-        saveActivityPointsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String method = "";
-                String plural = "";
-                String message;
-                if(pointsCounter > 0)method = "add ";
-                if(pointsCounter < 0)method = "subtract ";
-                if(pointsCounter > 1 || pointsCounter < -1) plural = "s";
-                if(pointsCounter == 0) message = "Do you want to save changes?";
-                else message = "Do you want to " + method + Math.abs(pointsCounter) + " point" + plural + "?";
-
-                new AlertDialog.Builder(getContext())
-                        .setMessage(message)
-                        .setCancelable(false)
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                Networking addPoint = (Networking) new Networking(progressBar, getContext(), new Networking.AsyncResponse() {
-                                    @Override
-                                    public void processFinish(String output) {
-                                        //Na latwizne polecialem w chuj ale jebac, nie dam rady juz
-                                        int actualPoints = currentPoints + pointsCounter;
-                                        View navHeader = ((UserPanelActivity)getActivity()).getHeaderView();
-                                        TextView tv = (TextView)(navHeader.findViewById(R.id.header_calculus_points));
-                                        tv.setText(String.valueOf(actualPoints));
-
-                                        ViewPager vp = (ViewPager) getActivity().findViewById(R.id.viewPager);
-                                        vp.getAdapter().notifyDataSetChanged();
-
-                                        pointsCounter = 0;
-                                    }
-                                }).execute(_method, indexNo, pointsCounter);
-                            }
-                        })
-                        .setNegativeButton("No", null)
-                        .show();
+                Intent intent = new Intent(getContext(), AddPointsActivity.class);
+                startActivityForResult(intent, REFRESH_VIEWPAGER_REQUEST);
+                getActivity().overridePendingTransition(R.anim.slide_up, R.anim.fade_out);
             }
         });
         return inflatedView;
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REFRESH_VIEWPAGER_REQUEST)
+        {
+            if(resultCode == Activity.RESULT_OK){
+                //Refresh ViewPager
+                ViewPager vp = (ViewPager) getActivity().findViewById(R.id.viewPager);
+                vp.getAdapter().notifyDataSetChanged();
+
+                //Update headerView with new value of activity points
+                 View navHeader = ((UserPanelActivity)getActivity()).getHeaderView();
+                 TextView tv = (TextView)(navHeader.findViewById(R.id.header_calculus_points));
+                 tv.setText(String.valueOf(currentPoints + data.getIntExtra("points", 0)));
+            }
+        }
+    }
+
 
 
 }

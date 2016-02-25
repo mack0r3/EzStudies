@@ -25,6 +25,8 @@ public class CalculusFragment extends Fragment {
     ViewPager viewPager;
     ViewPagerAdapter viewPagerAdapter;
 
+    View inflatedView;
+
 //    String indexNo;
 //    int points;
 
@@ -54,11 +56,14 @@ public class CalculusFragment extends Fragment {
 
         viewPagerAdapter = new ViewPagerAdapter(getFragmentManager(), getFragmentsList(), getTabTitles());;
         viewPager.setAdapter(viewPagerAdapter);
-        viewPagerAdapter.notifyDataSetChanged();
-        viewPagerAdapter.notifyDataSetChanged();
         tabLayout.setupWithViewPager(viewPager);
 
         return inflatedView;
+    }
+
+    public ViewPager getViewAdapter()
+    {
+        return viewPager;
     }
 
     private List<Fragment> getFragmentsList()

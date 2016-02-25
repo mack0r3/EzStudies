@@ -5,63 +5,17 @@
     tools:context=".Fragments.UserTestsFragment">
 
 
-    <LinearLayout
-        android:id="@+id/userNameRow"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
-        android:gravity="center">
-
-        <View
-            android:layout_width="50dp"
-            android:layout_height="1dp"
-            android:background="@color/colorText" />
-
-        <TextView
-            android:id="@+id/userNameTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-condensed"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:text="User Name"
-            android:textColor="@color/colorText"
-            android:textSize="20sp" />
-
-        <View
-            android:layout_width="50dp"
-            android:layout_height="1dp"
-            android:background="@color/colorText" />
-
-
-    </LinearLayout>
-
     <ListView
         android:id="@+id/testsListView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/addTestButton"
-        android:layout_below="@id/userNameRow"
         android:layout_marginLeft="80dp"
         android:layout_marginRight="80dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginBottom="100dp"
         android:divider="#006699"
-        android:dividerHeight="1dp"></ListView>
-
-    <Button
-        android:id="@+id/addTestButton"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/buttonsRow"
-        android:layout_marginLeft="80dp"
-        android:layout_marginRight="80dp"
-        android:layout_marginBottom="50dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/button_add_test_style"
-        android:text="Add test"
-        android:fontFamily="sans-serif-condensed"
-        android:textColor="@color/colorText"
-        android:textSize="15sp" />
+        android:dividerHeight="1dp"
+        android:layout_above="@id/buttonsRow"></ListView>
 
     <LinearLayout
         android:id="@+id/buttonsRow"
@@ -70,13 +24,13 @@
         android:layout_alignParentBottom="true">
 
         <Button
-            android:id="@+id/saveActivityButton"
+            android:id="@+id/addTestButton"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/button_add_point_style"
-            android:text="@string/saveActivityButtonText"
+            android:text="@string/addTestButtonText"
             android:textColor="@color/colorText"
-            android:textSize="20sp" />
+            android:textSize="15sp" />
 
     </LinearLayout>
 

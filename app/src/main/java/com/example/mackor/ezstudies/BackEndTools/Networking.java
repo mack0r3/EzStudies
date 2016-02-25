@@ -68,6 +68,7 @@ public class Networking extends AsyncTask<Object, Void, String> {
         String getUserInfoURL = "http://46.101.168.84/EzStudiesCRUD/get_user_info.php";
         String updateUserPointsURL = "http://46.101.168.84/EzStudiesCRUD/update_user_points.php";
         String getUserTestsURL = "http://46.101.168.84/EzStudiesCRUD/get_user_tests.php";
+        String insertTestURL = "http://46.101.168.84/EzStudiesCRUD/insert_test.php";
         String method = (String) params[0];
 
         if (!isConnectedToInternet(context)) {
@@ -112,6 +113,16 @@ public class Networking extends AsyncTask<Object, Void, String> {
                     e.printStackTrace();
                 }
                 return makeHttpPOSTRequest(getUserTestsURL, get_tests_data);
+            case "INSERT_TEST":
+                String insert_test_data = "";
+                try {
+                    insert_test_data = URLEncoder.encode("indexNo", "UTF-8") + "=" + URLEncoder.encode(params[1].toString(), "UTF-8") + "&";
+                    insert_test_data += URLEncoder.encode("testType", "UTF-8") + "=" + URLEncoder.encode(params[2].toString(), "UTF-8") + "&";
+                    insert_test_data += URLEncoder.encode("result", "UTF-8") + "=" + URLEncoder.encode(params[3].toString(), "UTF-8");
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+                return makeHttpPOSTRequest(insertTestURL, insert_test_data);
             default:
                 return null;
         }

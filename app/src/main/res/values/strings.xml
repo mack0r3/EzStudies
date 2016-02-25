@@ -16,6 +16,9 @@
     <string name="fa_logout">&#xf08b;</string>
     <string name="fa_plus_square">&#xf196;</string>
     <string name="fa_minus_square">&#xf147;</string>
+    <string name="fa_book">&#xf02d;</string>
+    <string name="fa_check_square">&#xf046;</string>
+
     <!-- Spinner -->
     <string-array name="group_array">
         <item>DA1</item>
@@ -29,10 +32,14 @@
     <!-- UserScore strings -->
     <string name="userActivityPoinstText">Activity points</string>
     <string name="publicResultText">Public result</string>
-    <string name="saveActivityButtonText">Save</string>
+    <string name="addActivityPointsButtonText">Add points</string>
+    <string name="confrimPoints">Confirm</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- UserTest string -->
+    <string name="addTestButtonText">Add test</string>
+
+    <!-- AddPoints Activity-->
+    <string name="addPointsMessage">Add yourself points:</string>
 
 
 </resources>
