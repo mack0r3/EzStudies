@@ -70,7 +70,6 @@ public class CalculusFragment extends Fragment {
     {
         List<Fragment> fragmentsList = new ArrayList<>();
         fragmentsList.add(new UserScoreFragment());
-        fragmentsList.add(new UserTestsFragment());
         fragmentsList.add(new GeneralScoreFragment());
 
 
@@ -80,7 +79,6 @@ public class CalculusFragment extends Fragment {
     {
         List<String> tabTitles = new ArrayList<String>();
         tabTitles.add("Activity");
-        tabTitles.add("Tests");
         tabTitles.add("General");
         return tabTitles;
     }

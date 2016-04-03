@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.mackor.ezstudies.Activities.AddPointsActivity;
 import com.example.mackor.ezstudies.Activities.UserPanelActivity;
@@ -64,11 +65,11 @@ public class UserScoreFragment extends Fragment {
 
         final TextView userActivityPointsTextView = (TextView) inflatedView.findViewById(R.id.userActivityPointsTextView);
         final ProgressBar progressBar = (ProgressBar) inflatedView.findViewById(R.id.myProgressBar);
-        Switch publicResultSwitch = (Switch) inflatedView.findViewById(R.id.publicResultSwitch);
+//        Switch publicResultSwitch = (Switch) inflatedView.findViewById(R.id.publicResultSwitch);
 
 
-        publicResultSwitch.setTextOff("OFF");
-        publicResultSwitch.setTextOn("ON");
+//        publicResultSwitch.setTextOff("OFF");
+//        publicResultSwitch.setTextOn("ON");
 
 
         //Retrieve logged user info
@@ -80,11 +81,15 @@ public class UserScoreFragment extends Fragment {
             public void processFinish(String output) {
                 try {
                     JSONObject json = new JSONObject(output);
-
-                    inflatedView.findViewById(R.id.userScoreFragmentContainer).setVisibility(View.VISIBLE);
-
-                    currentPoints = Integer.parseInt(json.getString("points"));
-                    userActivityPointsTextView.setText(String.valueOf(currentPoints));
+                    if(json.has("success"))
+                    {
+                        Toast toast = Toast.makeText(getContext(), json.getString("message"), Toast.LENGTH_LONG);
+                        toast.show();
+                    } else {
+                        inflatedView.findViewById(R.id.userScoreFragmentContainer).setVisibility(View.VISIBLE);
+                        currentPoints = Integer.parseInt(json.getString("points"));
+                        userActivityPointsTextView.setText(String.valueOf(currentPoints));
+                    }
 
                 } catch (JSONException e) {
                     e.printStackTrace();

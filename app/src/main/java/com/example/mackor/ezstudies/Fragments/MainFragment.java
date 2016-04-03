@@ -3,9 +3,11 @@ package com.example.mackor.ezstudies.Fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.example.mackor.ezstudies.R;
 
@@ -20,13 +22,17 @@ public class MainFragment extends Fragment {
         // Required empty public constructor
     }
 
+    View inflatedView;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        
+
+        inflatedView = inflater.inflate(R.layout.fragment_main, container, false);
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_main, container, false);
+        return inflatedView;
     }
 
 }

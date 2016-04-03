@@ -1,20 +1,31 @@
 package com.example.mackor.ezstudies.Activities;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.mackor.ezstudies.BackEndTools.AlarmReceiver;
 import com.example.mackor.ezstudies.BackEndTools.UserSessionManager;
 import com.example.mackor.ezstudies.R;
 
+import java.util.Calendar;
+
 public class MainActivity extends AppCompatActivity {
+
+    private AlarmManager alarmManager;
+    private PendingIntent alarmIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setAlarm(getApplicationContext());
 
         UserSessionManager userSessionManager = new UserSessionManager(getApplicationContext(), MainActivity.this);
         if(userSessionManager.isUserLoggedIn())
@@ -42,5 +53,17 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+    private void setAlarm(Context context){
+        alarmManager = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(context, AlarmReceiver.class);
+        alarmIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.set(Calendar.HOUR_OF_DAY, 21);
+        calendar.set(Calendar.MINUTE, 12);
+
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 1000 * 10, alarmIntent);
     }
 }

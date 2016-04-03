@@ -13,7 +13,7 @@
         android:layout_marginRight="80dp"
         android:layout_marginTop="100dp"
         android:layout_marginBottom="100dp"
-        android:divider="#006699"
+        android:divider="#27ae60"
         android:dividerHeight="1dp"
         android:layout_above="@id/buttonsRow"></ListView>
 

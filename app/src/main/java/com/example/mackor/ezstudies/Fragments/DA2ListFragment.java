@@ -41,7 +41,7 @@ public class DA2ListFragment extends ListFragment {
             public void processFinish(String output) {
                 try {
                     JSONArray jsonArr = SortResults(new JSONArray(output), "DA2");
-                    CustomJSONAdapter myAdapter = new CustomJSONAdapter(jsonArr, getActivity());
+                    CustomJSONAdapter myAdapter = new CustomJSONAdapter("276946", jsonArr, getActivity());
                     setListAdapter(myAdapter);
                 } catch (JSONException e) {
                     Log.v("ERROR", e.getMessage());

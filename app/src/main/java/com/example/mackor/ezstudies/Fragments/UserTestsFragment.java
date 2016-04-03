@@ -55,7 +55,7 @@ public class UserTestsFragment extends Fragment {
             public void processFinish(String output) {
                 try {
                     JSONArray jsonArr = new JSONArray(output);
-                    CustomJSONAdapter myAdapter = new CustomJSONAdapter(jsonArr, getContext());
+                    CustomJSONAdapter myAdapter = new CustomJSONAdapter("276946", jsonArr, getContext());
                     ListView listView = (ListView)inflatedView.findViewById(R.id.testsListView);
                     listView.setAdapter(myAdapter);
                 } catch (JSONException e) {
@@ -91,7 +91,6 @@ public class UserTestsFragment extends Fragment {
                 TextView tv = (TextView)(navHeader.findViewById(R.id.header_calculus_points));
                 String formerPoints = tv.getText().toString();
                 String newPoints = String.valueOf(Integer.parseInt(formerPoints) + Integer.parseInt(data.getStringExtra("result")));
-                Log.v("ERRORS", newPoints);
                 tv.setText(newPoints);
             }
         }

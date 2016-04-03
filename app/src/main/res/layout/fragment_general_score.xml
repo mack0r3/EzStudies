@@ -2,16 +2,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.mackor.ezstudies.Fragments.GeneralScoreFragment">
+    tools:context="com.example.mackor.ezstudies.Fragments.GeneralScoreFragment"
+    android:orientation="horizontal">
 
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Large Text"
-        android:textColor="@color/colorText"
-        android:id="@+id/textView" />
+    <ListView
+        android:id="@+id/usersPoints"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="50dp"
+        android:divider="#27ae60"
+        android:dividerHeight="1dp"></ListView>
     <ProgressBar
         android:id="@+id/myProgressBar"
         style="?android:attr/progressBarStyleLarge"

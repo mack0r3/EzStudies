@@ -62,13 +62,14 @@ public class Networking extends AsyncTask<Object, Void, String> {
 
     @Override
     protected String doInBackground(Object... params) {
-        String registerURL = "http://46.101.168.84/EzStudiesCRUD/register.php";
-        String loginURL = "http://46.101.168.84/EzStudiesCRUD/login.php";
-        String getResultsURL = "http://46.101.168.84/EzStudiesCRUD/get_results.php";
-        String getUserInfoURL = "http://46.101.168.84/EzStudiesCRUD/get_user_info.php";
-        String updateUserPointsURL = "http://46.101.168.84/EzStudiesCRUD/update_user_points.php";
-        String getUserTestsURL = "http://46.101.168.84/EzStudiesCRUD/get_user_tests.php";
-        String insertTestURL = "http://46.101.168.84/EzStudiesCRUD/insert_test.php";
+        String registerURL = "http://ezstudies.knightparty.pl/register.php";
+        String loginURL = "http://ezstudies.knightparty.pl/login.php";
+        String getResultsURL = "http://ezstudies.knightparty.pl/get_results.php";
+        String getUserInfoURL = "http://ezstudies.knightparty.pl/get_user_info.php";
+        String updateUserPointsURL = "http://ezstudies.knightparty.pl/update_user_points.php";
+        String getUserTestsURL = "http://ezstudies.knightparty.pl/get_user_tests.php";
+        String insertTestURL = "http://ezstudies.knightparty.pl/insert_test.php";
+        String getUsersPointsURL = "http://ezstudies.knightparty.pl/get_users_points.php";
         String method = (String) params[0];
 
         if (!isConnectedToInternet(context)) {
@@ -123,6 +124,14 @@ public class Networking extends AsyncTask<Object, Void, String> {
                     e.printStackTrace();
                 }
                 return makeHttpPOSTRequest(insertTestURL, insert_test_data);
+            case "GET_USERS_POINTS":
+                String get_users_points = "";
+                try {
+                    get_users_points = URLEncoder.encode("group", "UTF-8") + "=" + URLEncoder.encode(params[1].toString(), "UTF-8");
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+                return makeHttpPOSTRequest(getUsersPointsURL, get_users_points);
             default:
                 return null;
         }
@@ -196,17 +205,13 @@ public class Networking extends AsyncTask<Object, Void, String> {
     }
 
     public boolean isConnectedToInternet(Context context) {
-        ConnectivityManager connectivity = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        if (connectivity != null) {
-            NetworkInfo[] info = connectivity.getAllNetworkInfo();
-            if (info != null)
-                for (int i = 0; i < info.length; i++)
-                    if (info[i].getState() == NetworkInfo.State.CONNECTED) {
-                        return true;
-                    }
+        ConnectivityManager cm =
+                (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
 
-        }
-        return false;
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        boolean isConnected = activeNetwork != null &&
+                activeNetwork.isConnectedOrConnecting();
+        return isConnected;
     }
 
 

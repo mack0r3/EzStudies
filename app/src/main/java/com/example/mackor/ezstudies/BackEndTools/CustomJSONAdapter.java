@@ -2,6 +2,7 @@ package com.example.mackor.ezstudies.BackEndTools;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.preference.PreferenceManager;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
@@ -25,10 +26,12 @@ public class CustomJSONAdapter extends BaseAdapter {
 
     private JSONArray jsonArr;
     private Context context;
+    private String currentIndexNo;
 
-    public CustomJSONAdapter(JSONArray jsonArr, Context context) {
+    public CustomJSONAdapter(String currentIndexNo, JSONArray jsonArr, Context context) {
         this.jsonArr = jsonArr;
         this.context = context;
+        this.currentIndexNo = currentIndexNo;
     }
 
     @Override
@@ -66,24 +69,29 @@ public class CustomJSONAdapter extends BaseAdapter {
             LayoutInflater layoutInflater = LayoutInflater.from(context);
             convertView = layoutInflater.inflate(R.layout.custom_user_test_result, null);
         }
-
+        convertView.setBackgroundColor(Color.parseColor("#101010"));
         TextView testTypeTV = (TextView)convertView.findViewById(R.id.test_type);
         TextView testScoreTV = (TextView)convertView.findViewById(R.id.test_score);
 
         JSONObject json = (JSONObject) getItem(position);
 
-        String testType = "";
-        int testScore = 0;
+        String indexNo = "";
+        int points = 0;
         try {
-            testType = json.getString("testType");
-            testScore = json.getInt("result");
+            indexNo = json.getString("indexNo");
+            points = json.getInt("points");
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        testTypeTV.setText(testType);
-        testScoreTV.setText(String.valueOf(testScore));
+        testTypeTV.setText(indexNo);
+        testScoreTV.setText(String.valueOf(points));
+
+        if(currentIndexNo.equals(indexNo))
+        {
+            convertView.setBackgroundColor(Color.parseColor("#27ae60"));
+        }
 
         return convertView;
     }

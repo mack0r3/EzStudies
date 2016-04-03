@@ -1,5 +1,9 @@
 package com.example.mackor.ezstudies.Activities;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.support.design.widget.NavigationView;
@@ -10,11 +14,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.mackor.ezstudies.BackEndTools.AlarmReceiver;
 import com.example.mackor.ezstudies.BackEndTools.Networking;
 import com.example.mackor.ezstudies.BackEndTools.UserSessionManager;
 import com.example.mackor.ezstudies.Fragments.CalculusFragment;
@@ -25,6 +32,8 @@ import com.example.mackor.ezstudies.R;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Calendar;
+
 public class UserPanelActivity extends AppCompatActivity {
 
     Toolbar toolbar;
@@ -33,6 +42,7 @@ public class UserPanelActivity extends AppCompatActivity {
     FragmentTransaction fragmentTransaction;
     NavigationView navigationView;
     View headerView;
+
 
     int lastItemClicked;
 
@@ -57,7 +67,7 @@ public class UserPanelActivity extends AppCompatActivity {
         fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.main_container, new MainFragment());
         fragmentTransaction.commit();
-        getSupportActionBar().setTitle("MainContainer");
+        getSupportActionBar().setTitle("EzStudies");
         navigationView = (NavigationView) findViewById(R.id.navigation_view);
         navigationView.setItemTextColor(ColorStateList.valueOf(Color.WHITE));
         navigationView.setItemIconTintList(ColorStateList.valueOf(Color.WHITE));
@@ -85,15 +95,20 @@ public class UserPanelActivity extends AppCompatActivity {
             @Override
             public void processFinish(String output) {
                 try {
-                    View view = findViewById(R.id.loggedUserInfo);
-                    view.setVisibility(View.VISIBLE);
-
                     JSONObject json = new JSONObject(output);
-                    String group = json.getString("group");
-                    points = Integer.parseInt(json.getString("points"));
-                    headerName.setText(indexNo);
-                    headerGroup.setText(group);
-                    headerCalculusPoints.setText(String.valueOf(points));
+                    if(json.has("success"))
+                    {
+                        Toast toast = Toast.makeText(getApplicationContext(), json.getString("message"), Toast.LENGTH_LONG);
+                        toast.show();
+                    } else {
+                        View view = findViewById(R.id.loggedUserInfo);
+                        view.setVisibility(View.VISIBLE);
+                        String group = json.getString("group");
+                        points = Integer.parseInt(json.getString("points"));
+                        headerName.setText(indexNo);
+                        headerGroup.setText(group);
+                        headerCalculusPoints.setText(String.valueOf(points));
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -110,7 +125,8 @@ public class UserPanelActivity extends AppCompatActivity {
                         CalculusFragment calculusFragment = new CalculusFragment();
                         fragmentTransaction = getSupportFragmentManager().beginTransaction();
                         fragmentTransaction.replace(R.id.main_container, calculusFragment);
-                        if(lastItemClicked != item.getItemId())fragmentTransaction.addToBackStack(null);
+                        if (lastItemClicked != item.getItemId())
+                            fragmentTransaction.addToBackStack(null);
                         fragmentTransaction.commit();
                         getSupportActionBar().setTitle("Calculus");
                         item.setChecked(true);
@@ -133,6 +149,24 @@ public class UserPanelActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.toolbar_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.action_search:
+                startActivity(new Intent(this, UserPanelActivity.class));
+                this.finish();
+                this.overridePendingTransition(0, 0);
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
     public void onBackPressed() {
 
         int count = getSupportFragmentManager().getBackStackEntryCount();
@@ -140,7 +174,10 @@ public class UserPanelActivity extends AppCompatActivity {
             super.onBackPressed();
             //additional code
         } else {
-            if(count == 1) lastItemClicked = 0;
+            if(count == 1){
+                lastItemClicked = 0;
+                getSupportActionBar().setTitle("EzStudies");
+            }
             getSupportFragmentManager().popBackStack();
         }
 

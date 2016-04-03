@@ -38,13 +38,13 @@
     <color name="highlightedRowColor">#27ae60</color>
 
     <!-- Calculus User Result Colors -->
-    <color name="addPointButtonColor">#006699</color>
+    <color name="addPointButtonColor">#27ae60</color>
     <color name="subtractPointButtonColor">#c0392b</color>
-    <color name="menageButtonsColor">#006699</color>
-    <color name="rowsDivider">#006699</color>
+    <color name="menageButtonsColor">#27ae60</color>
+    <color name="rowsDivider">#27ae60</color>
 
     <!-- Calculus User Test Colors -->
-    <color name="addTestButtonColor">#006699</color>
+    <color name="addTestButtonColor">#27ae60</color>
 
 
 
