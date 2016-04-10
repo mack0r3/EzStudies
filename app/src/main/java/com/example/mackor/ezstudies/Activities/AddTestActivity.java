@@ -40,7 +40,7 @@ public class AddTestActivity extends AppCompatActivity {
 
         progressBar = (ProgressBar)findViewById(R.id.myProgressBar);
 
-        indexNo = new UserSessionManager(getApplicationContext(), AddTestActivity.this).getIndexNo();
+        indexNo = new UserSessionManager(getApplicationContext()).getIndexNo();
 
         Button addTestButton = (Button)findViewById(R.id.addTestButton);
         addTestButton.setOnClickListener(new View.OnClickListener() {

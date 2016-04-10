@@ -23,7 +23,7 @@ public class UserSessionManager {
     private static final String IS_USR_LOGGED = "IsUserLoggedIn";
     public static final String KEY_INDEX = "index";
 
-    public UserSessionManager(Context context, Activity activity) {
+    public UserSessionManager(Context context) {
         this.context = context;
         this.activity = activity;
         sharedPreferences = context.getSharedPreferences(PREF_NAME, PRIVATE_MODE);
@@ -63,25 +63,8 @@ public class UserSessionManager {
     }
 
     public void logoutUser() {
-
         // Clearing all user data from Shared Preferences
-        editor.clear();
+        editor.remove(IS_USR_LOGGED);
         editor.commit();
-
-        // After logout redirect user to Login Activity
-        Intent intent = new Intent(context, SignInActivity.class);
-
-        // Closing all the Activities
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
-        // Add new Flag to start new Activity
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-
-
-        activity.finish();
-
-
-        // Staring Login Activity
-        context.startActivity(intent);
     }
 }

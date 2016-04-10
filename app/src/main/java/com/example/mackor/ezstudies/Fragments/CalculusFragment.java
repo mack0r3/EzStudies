@@ -54,7 +54,7 @@ public class CalculusFragment extends Fragment {
         List<Fragment> fragmentsList = getFragmentsList();
         List<String> tabTitles = getTabTitles();
 
-        viewPagerAdapter = new ViewPagerAdapter(getFragmentManager(), getFragmentsList(), getTabTitles());;
+        viewPagerAdapter = new ViewPagerAdapter(getFragmentManager(), getFragmentsList(), getTabTitles());
         viewPager.setAdapter(viewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
 

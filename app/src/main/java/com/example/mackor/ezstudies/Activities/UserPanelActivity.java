@@ -90,7 +90,7 @@ public class UserPanelActivity extends AppCompatActivity {
 
         ProgressBar progressBar = (ProgressBar) headerView.findViewById(R.id.myProgressBar);
         String method = "GET_USER_INFO";
-        indexNo = new UserSessionManager(getApplicationContext(), UserPanelActivity.this).getIndexNo();
+        indexNo = new UserSessionManager(getApplicationContext()).getIndexNo();
         Networking networking = (Networking) new Networking(progressBar, getApplicationContext(), new Networking.AsyncResponse() {
             @Override
             public void processFinish(String output) {
@@ -134,8 +134,17 @@ public class UserPanelActivity extends AppCompatActivity {
                         lastItemClicked = item.getItemId();
                         break;
                     case R.id.logout_id:
-                        UserSessionManager userSessionManager = new UserSessionManager(getApplicationContext(), UserPanelActivity.this);
+                        UserSessionManager userSessionManager = new UserSessionManager(getApplicationContext());
                         userSessionManager.logoutUser();
+                        // After logout redirect user to Login Activity
+                        Intent intent = new Intent(getApplicationContext(), SignInActivity.class);
+                        // Closing all the Activities
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        // Add new Flag to start new Activity
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        finish();
+                        // Staring Login Activity
+                        getApplicationContext().startActivity(intent);
                 }
                 return false;
             }

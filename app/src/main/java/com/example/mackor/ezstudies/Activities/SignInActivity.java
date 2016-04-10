@@ -62,7 +62,7 @@ public class SignInActivity extends AppCompatActivity {
                                 Toast.makeText(getApplicationContext(), json.getString("message"), Toast.LENGTH_SHORT).show();
                                 if(json.getString("success").equals("true"))
                                 {
-                                    UserSessionManager userSessionManager = new UserSessionManager(getApplicationContext(), SignInActivity.this);
+                                    UserSessionManager userSessionManager = new UserSessionManager(getApplicationContext());
                                     userSessionManager.createUserLogginSession(indexNo);
                                     Intent intent = new Intent(getApplicationContext(), UserPanelActivity.class);
                                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);

@@ -74,7 +74,7 @@ public class UserScoreFragment extends Fragment {
 
         //Retrieve logged user info
         String method = "GET_USER_INFO";
-        indexNo = new UserSessionManager(getContext(), getActivity()).getIndexNo();
+        indexNo = new UserSessionManager(getContext()).getIndexNo();
 
         Networking getUserInfo = (Networking) new Networking(progressBar, getContext(), new Networking.AsyncResponse() {
             @Override

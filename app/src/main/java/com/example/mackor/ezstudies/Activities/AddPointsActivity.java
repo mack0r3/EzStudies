@@ -31,7 +31,7 @@ public class AddPointsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_points);
 
-        indexNo = new UserSessionManager(getApplicationContext(), this).getIndexNo();
+        indexNo = new UserSessionManager(getApplicationContext()).getIndexNo();
 
         pointsInput = (EditText)findViewById(R.id.pointsInput);
         progressBar = (ProgressBar)findViewById(R.id.myProgressBar);

@@ -50,13 +50,13 @@ public class Networking extends AsyncTask<Object, Void, String> {
 
     @Override
     protected void onPostExecute(String result) {
-        progressBar.setVisibility(View.GONE);
+        if(progressBar != null) progressBar.setVisibility(View.GONE);
         delegate.processFinish(result);
     }
 
     @Override
     protected void onPreExecute() {
-        progressBar.setVisibility(View.VISIBLE);
+        if(progressBar != null) progressBar.setVisibility(View.VISIBLE);
         super.onPreExecute();
     }
 
@@ -70,6 +70,7 @@ public class Networking extends AsyncTask<Object, Void, String> {
         String getUserTestsURL = "http://ezstudies.knightparty.pl/get_user_tests.php";
         String insertTestURL = "http://ezstudies.knightparty.pl/insert_test.php";
         String getUsersPointsURL = "http://ezstudies.knightparty.pl/get_users_points.php";
+        String getAveragePointsURL = "http://ezstudies.knightparty.pl/get_average_points.php";
         String method = (String) params[0];
 
         if (!isConnectedToInternet(context)) {
@@ -132,6 +133,14 @@ public class Networking extends AsyncTask<Object, Void, String> {
                     e.printStackTrace();
                 }
                 return makeHttpPOSTRequest(getUsersPointsURL, get_users_points);
+            case "GET_AVERAGE_POINTS":
+                String get_average_points = "";
+                try {
+                    get_average_points = URLEncoder.encode("group", "UTF-8") + "=" + URLEncoder.encode(params[1].toString(), "UTF-8");
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+                return makeHttpPOSTRequest(getAveragePointsURL, get_average_points);
             default:
                 return null;
         }

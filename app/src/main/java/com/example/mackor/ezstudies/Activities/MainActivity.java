@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         setAlarm(getApplicationContext());
 
-        UserSessionManager userSessionManager = new UserSessionManager(getApplicationContext(), MainActivity.this);
+        UserSessionManager userSessionManager = new UserSessionManager(getApplicationContext());
         if(userSessionManager.isUserLoggedIn())
         {
             Intent intent = new Intent(getApplicationContext(), UserPanelActivity.class);
@@ -61,9 +61,10 @@ public class MainActivity extends AppCompatActivity {
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY, 21);
-        calendar.set(Calendar.MINUTE, 12);
+        calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+        calendar.set(Calendar.HOUR_OF_DAY, 10);
+        calendar.set(Calendar.MINUTE, 0);
 
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 1000 * 10, alarmIntent);
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 1000 * 60 * 60, alarmIntent);
     }
 }

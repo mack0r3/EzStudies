@@ -46,7 +46,7 @@ public class GeneralScoreFragment extends Fragment {
 
         ProgressBar progressBar = (ProgressBar)inflatedView.findViewById(R.id.myProgressBar);
 
-        UserSessionManager userSessionManager = new UserSessionManager(getContext(), getActivity());
+        UserSessionManager userSessionManager = new UserSessionManager(getContext());
         indexNo = userSessionManager.getIndexNo();
 
 

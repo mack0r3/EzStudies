@@ -49,7 +49,7 @@ public class UserTestsFragment extends Fragment {
         myProgressBar = (ProgressBar)inflatedView.findViewById(R.id.myProgressBar);
 
         String method = "GET_USER_TESTS";
-        String indexNo = new UserSessionManager(getContext(), getActivity()).getIndexNo();
+        String indexNo = new UserSessionManager(getContext()).getIndexNo();
         Networking networking = (Networking) new Networking(myProgressBar, getContext(), new Networking.AsyncResponse() {
             @Override
             public void processFinish(String output) {
